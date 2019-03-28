@@ -2,6 +2,8 @@ package mvp.ujang.posmvp.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,8 +55,8 @@ public class PenjualanAdapter extends RecyclerView.Adapter<PenjualanAdapter.MyVi
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Produk produk = produkList.get(position);
-        holder.tvNama.setText(produk.getNama());
-        holder.tvHarga.setText(produk.getHarga());
+        holder.tvNama.setText(produk.getNAMABARANG());
+        holder.tvHarga.setText(produk.getHARGAJUALBARANG());
         holder.btnPesan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +65,9 @@ public class PenjualanAdapter extends RecyclerView.Adapter<PenjualanAdapter.MyVi
             }
         });
 
-        Glide.with(mContext).load(produk.getImage()).into(holder.imgProduk);
+        byte[] imageByteArray = Base64.decode(produk.getGAMBARBARANG().replace("data:image/jpeg;base64,",""), Base64.DEFAULT);
+        Log.d("imageByteArray",imageByteArray.toString());
+        Glide.with(mContext).load(imageByteArray).asBitmap().into(holder.imgProduk);
     }
 
     @Override

@@ -50,10 +50,10 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.MyViewHold
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Produk produk = produkList.get(position);
-        holder.tvNama.setText(produk.getNama());
-        holder.tvHarga.setText(produk.getHarga());
+        holder.tvNama.setText(produk.getNAMABARANG());
+        holder.tvHarga.setText(produk.getHARGAJUALBARANG());
 
-        Glide.with(mContext).load(produk.getImage()).into(holder.imgProduk);
+        //Glide.with(mContext).load(produk.getImage()).into(holder.imgProduk);
     }
 
     @Override

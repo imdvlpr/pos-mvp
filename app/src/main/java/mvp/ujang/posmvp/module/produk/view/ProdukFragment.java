@@ -68,59 +68,59 @@ public class ProdukFragment extends BaseFragment {
     }
 
     private void loadData() {
-        int[] covers = new int[]{
-                R.drawable.img_produk,
-                R.drawable.img_produk2,
-                R.drawable.img_produk3,
-                R.drawable.img_produk4};
-
-        Produk a = new Produk("Kopi Good Day", "Rp. 10.000", covers[0]);
-        produkList.add(a);
-
-        a = new Produk("Sabun Dettol Natural", "Rp. 15.000", covers[1]);
-        produkList.add(a);
-
-        a = new Produk("Sabun Dettol Anti Bakteri", "Rp. 25.000", covers[2]);
-        produkList.add(a);
-
-        a = new Produk("Sampo Head & Shoulders", "Rp. 35.000", covers[3]);
-        produkList.add(a);
-
-        a = new Produk("Kopi Good Day", "Rp. 10.000", covers[0]);
-        produkList.add(a);
-
-        a = new Produk("Sabun Dettol Natural", "Rp. 15.000", covers[1]);
-        produkList.add(a);
-
-        a = new Produk("Sabun Dettol Anti Bakteri", "Rp. 25.000", covers[2]);
-        produkList.add(a);
-
-        a = new Produk("Sampo Head & Shoulders", "Rp. 35.000", covers[3]);
-        produkList.add(a);
-
-        a = new Produk("Kopi Good Day", "Rp. 10.000", covers[0]);
-        produkList.add(a);
-
-        a = new Produk("Sabun Dettol Natural", "Rp. 15.000", covers[1]);
-        produkList.add(a);
-
-        a = new Produk("Sabun Dettol Anti Bakteri", "Rp. 25.000", covers[2]);
-        produkList.add(a);
-
-        a = new Produk("Sampo Head & Shoulders", "Rp. 35.000", covers[3]);
-        produkList.add(a);
-
-        a = new Produk("Kopi Good Day", "Rp. 10.000", covers[0]);
-        produkList.add(a);
-
-        a = new Produk("Sabun Dettol Natural", "Rp. 15.000", covers[1]);
-        produkList.add(a);
-
-        a = new Produk("Sabun Dettol Anti Bakteri", "Rp. 25.000", covers[2]);
-        produkList.add(a);
-
-        a = new Produk("Sampo Head & Shoulders", "Rp. 35.000", covers[3]);
-        produkList.add(a);
+//        int[] covers = new int[]{
+//                R.drawable.img_produk,
+//                R.drawable.img_produk2,
+//                R.drawable.img_produk3,
+//                R.drawable.img_produk4};
+//
+//        Produk a = new Produk("Kopi Good Day", "Rp. 10.000", covers[0]);
+//        produkList.add(a);
+//
+//        a = new Produk("Sabun Dettol Natural", "Rp. 15.000", covers[1]);
+//        produkList.add(a);
+//
+//        a = new Produk("Sabun Dettol Anti Bakteri", "Rp. 25.000", covers[2]);
+//        produkList.add(a);
+//
+//        a = new Produk("Sampo Head & Shoulders", "Rp. 35.000", covers[3]);
+//        produkList.add(a);
+//
+//        a = new Produk("Kopi Good Day", "Rp. 10.000", covers[0]);
+//        produkList.add(a);
+//
+//        a = new Produk("Sabun Dettol Natural", "Rp. 15.000", covers[1]);
+//        produkList.add(a);
+//
+//        a = new Produk("Sabun Dettol Anti Bakteri", "Rp. 25.000", covers[2]);
+//        produkList.add(a);
+//
+//        a = new Produk("Sampo Head & Shoulders", "Rp. 35.000", covers[3]);
+//        produkList.add(a);
+//
+//        a = new Produk("Kopi Good Day", "Rp. 10.000", covers[0]);
+//        produkList.add(a);
+//
+//        a = new Produk("Sabun Dettol Natural", "Rp. 15.000", covers[1]);
+//        produkList.add(a);
+//
+//        a = new Produk("Sabun Dettol Anti Bakteri", "Rp. 25.000", covers[2]);
+//        produkList.add(a);
+//
+//        a = new Produk("Sampo Head & Shoulders", "Rp. 35.000", covers[3]);
+//        produkList.add(a);
+//
+//        a = new Produk("Kopi Good Day", "Rp. 10.000", covers[0]);
+//        produkList.add(a);
+//
+//        a = new Produk("Sabun Dettol Natural", "Rp. 15.000", covers[1]);
+//        produkList.add(a);
+//
+//        a = new Produk("Sabun Dettol Anti Bakteri", "Rp. 25.000", covers[2]);
+//        produkList.add(a);
+//
+//        a = new Produk("Sampo Head & Shoulders", "Rp. 35.000", covers[3]);
+//        produkList.add(a);
 
         adapter.notifyDataSetChanged();
     }

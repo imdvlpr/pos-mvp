@@ -20,10 +20,13 @@ import java.util.List;
 import mvp.ujang.posmvp.R;
 import mvp.ujang.posmvp.adapter.PenjualanAdapter;
 import mvp.ujang.posmvp.base.BaseFragment;
+import mvp.ujang.posmvp.module.Penjualan.PenjualanContract;
 import mvp.ujang.posmvp.module.Penjualan.model.Produk;
+import mvp.ujang.posmvp.module.Penjualan.presenter.PenjualanPresenter;
 
-public class PenjualanFragment extends BaseFragment {
+public class PenjualanFragment extends BaseFragment implements PenjualanContract.PenjualanView {
 
+    private PenjualanPresenter mPresenter;
     private RecyclerView recyclerView;
     private PenjualanAdapter adapter;
     private List<Produk> produkList;
@@ -35,11 +38,11 @@ public class PenjualanFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_penjualan, null);
-
+        mPresenter = new PenjualanPresenter(this,getActivity().getApplicationContext());
         findViews(view);
         initViews(view);
         initListeners(view);
-
+        fetchData();
         return view;
     }
 
@@ -66,7 +69,6 @@ public class PenjualanFragment extends BaseFragment {
     public void initViews(View view) {
         produkList = new ArrayList<>();
         generateList(produkList);
-        loadData();
     }
 
     @Override
@@ -87,69 +89,40 @@ public class PenjualanFragment extends BaseFragment {
         recyclerView.setAdapter(adapter);
     }
 
-    private void loadData() {
-        int[] covers = new int[]{
-                R.drawable.img_produk,
-                R.drawable.img_produk2,
-                R.drawable.img_produk3,
-                R.drawable.img_produk4};
-
-        Produk a = new Produk("Kopi Good Day", "Rp. 10.000", covers[0]);
-        produkList.add(a);
-
-        a = new Produk("Sabun Dettol Natural", "Rp. 15.000", covers[1]);
-        produkList.add(a);
-
-        a = new Produk("Sabun Dettol Anti Bakteri", "Rp. 25.000", covers[2]);
-        produkList.add(a);
-
-        a = new Produk("Sampo Head & Shoulders", "Rp. 35.000", covers[3]);
-        produkList.add(a);
-
-        a = new Produk("Kopi Good Day", "Rp. 10.000", covers[0]);
-        produkList.add(a);
-
-        a = new Produk("Sabun Dettol Natural", "Rp. 15.000", covers[1]);
-        produkList.add(a);
-
-        a = new Produk("Sabun Dettol Anti Bakteri", "Rp. 25.000", covers[2]);
-        produkList.add(a);
-
-        a = new Produk("Sampo Head & Shoulders", "Rp. 35.000", covers[3]);
-        produkList.add(a);
-
-        a = new Produk("Kopi Good Day", "Rp. 10.000", covers[0]);
-        produkList.add(a);
-
-        a = new Produk("Sabun Dettol Natural", "Rp. 15.000", covers[1]);
-        produkList.add(a);
-
-        a = new Produk("Sabun Dettol Anti Bakteri", "Rp. 25.000", covers[2]);
-        produkList.add(a);
-
-        a = new Produk("Sampo Head & Shoulders", "Rp. 35.000", covers[3]);
-        produkList.add(a);
-
-        a = new Produk("Kopi Good Day", "Rp. 10.000", covers[0]);
-        produkList.add(a);
-
-        a = new Produk("Sabun Dettol Natural", "Rp. 15.000", covers[1]);
-        produkList.add(a);
-
-        a = new Produk("Sabun Dettol Anti Bakteri", "Rp. 25.000", covers[2]);
-        produkList.add(a);
-
-        a = new Produk("Sampo Head & Shoulders", "Rp. 35.000", covers[3]);
-        produkList.add(a);
-
-        adapter.notifyDataSetChanged();
-    }
-
     public void showBottomSheetDialog() {
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_bottom_sheet_dialog, null);
-
         BottomSheetDialog dialog = new BottomSheetDialog(getContext());
         dialog.setContentView(view);
         dialog.show();
+    }
+
+    public void fetchData(){
+        mPresenter.loadData();
+    }
+
+    @Override
+    public void listProduk(List<Produk> response) {
+        produkList.clear();
+        produkList.addAll(response);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
+    public void onFailure() {
+
+    }
+
+    @Override
+    public void onFailed() {
+
+    }
+
+    @Override
+    public void setPresenter(PenjualanContract.Presenter presenter) {
     }
 }
