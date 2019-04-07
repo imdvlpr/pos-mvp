@@ -12,21 +12,22 @@ import mvp.ujang.posmvp.module.produk.ProdukContract;
 import mvp.ujang.posmvp.usecase.kategori.KategoriUsecase;
 import mvp.ujang.posmvp.usecase.keranjang.KeranjangUsecase;
 import mvp.ujang.posmvp.usecase.penjualan.PenjualanUsecase;
+import mvp.ujang.posmvp.usecase.produk.ProdukUsecase;
 
 public class ProdukPresenter implements ProdukContract.Presenter {
 
     private ProdukContract.ProdukView view;
     private KategoriUsecase  kategoriUsecase;
-    private PenjualanUsecase penjualanUsecase;
+    private ProdukUsecase produkUsecase;
     private KeranjangUsecase keranjangUsecase;
     private Context context;
 
-    public ProdukPresenter(PenjualanUsecase penjualanUsecase,
+    public ProdukPresenter(ProdukUsecase produkUsecase,
                            KategoriUsecase kategoriUsecase,
                            ProdukContract.ProdukView view,
                            Context context) {
         this.kategoriUsecase = kategoriUsecase;
-        this.penjualanUsecase = penjualanUsecase;
+        this.produkUsecase = produkUsecase;
         this.keranjangUsecase = keranjangUsecase;
         this.view = view;
         this.context = context;
@@ -39,7 +40,7 @@ public class ProdukPresenter implements ProdukContract.Presenter {
 
     @Override
     public void loadProduk() {
-        penjualanUsecase.loadProduk(new Callback.LoadCallback<Produk>() {
+        produkUsecase.loadProduk(new Callback.LoadCallback<Produk>() {
             @Override
             public void onLoadSuccess(List<Produk> response) {
                 view.listProduk(response);
@@ -54,7 +55,7 @@ public class ProdukPresenter implements ProdukContract.Presenter {
 
     @Override
     public void searchProduk(@NonNull Produk param) {
-        penjualanUsecase.searchProduk(param, new Callback.LoadCallback<Produk>() {
+        produkUsecase.searchProduk(param, new Callback.LoadCallback<Produk>() {
             @Override
             public void onLoadSuccess(List<Produk> response) {
                 view.listProduk(response);
@@ -70,7 +71,7 @@ public class ProdukPresenter implements ProdukContract.Presenter {
 
     @Override
     public void addProduk(@NonNull Produk produk) {
-        penjualanUsecase.addProduk(produk, new Callback.AddCallback<Produk>() {
+        produkUsecase.addProduk(produk, new Callback.AddCallback<Produk>() {
             @Override
             public void onAddSuccess(@NonNull Produk response) {
                 view.addProduk(response);

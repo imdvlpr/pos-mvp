@@ -1,8 +1,8 @@
-package mvp.ujang.posmvp.module.produk.model;
+package mvp.ujang.posmvp.module.penjualan.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Produk{
+public class Penjualan {
 
 	@SerializedName("id_kategori")
 	private String idKategori;
@@ -34,13 +34,10 @@ public class Produk{
 	@SerializedName("jumlah")
 	private String jumlah;
 
-	@SerializedName("selected")
-	private boolean selected;
 
+	public Penjualan(){}
 
-	public Produk(){}
-
-	public Produk(String idKategori, String hargaJualBarang, String satuan, String gambarBarang, String kdBarang, String namaBarang, String deskripsiBarang, String stokBarang) {
+	public Penjualan(String idKategori, String hargaJualBarang, String satuan, String gambarBarang, String kdBarang, String namaBarang, String deskripsiBarang, String stokBarang,String jumlah) {
 		this.idKategori = idKategori;
 		this.hargaJualBarang = hargaJualBarang;
 		this.satuan = satuan;
@@ -49,6 +46,7 @@ public class Produk{
 		this.namaBarang = namaBarang;
 		this.deskripsiBarang = deskripsiBarang;
 		this.stokBarang = stokBarang;
+		this.jumlah		= jumlah;
 	}
 
 	public void setIdKategori(String idKategori){
@@ -129,14 +127,6 @@ public class Produk{
 
 	public void setJumlah(String jumlah) {
 		this.jumlah = jumlah;
-	}
-
-	public boolean isSelected() {
-		return selected;
-	}
-
-	public void setSelected(boolean selected) {
-		this.selected = selected;
 	}
 
 	@Override

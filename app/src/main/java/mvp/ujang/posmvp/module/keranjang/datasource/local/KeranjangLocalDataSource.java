@@ -88,7 +88,7 @@ public class KeranjangLocalDataSource implements KeranjangDataSource {
         cursor = database.rawQuery(query,null);
 
         if (cursor.getCount() > 0 ){
-            String queryUpdate = "update keranjang set jumlah = jumlah +"+keranjang.getJumlah()+" WHERE kd_barang = '"+keranjang.getKdBarang()+"'";
+            String queryUpdate = "update keranjang set jumlah = "+keranjang.getJumlah()+" WHERE kd_barang = '"+keranjang.getKdBarang()+"'";
             database.execSQL(queryUpdate);
         }else{
             ContentValues values = new ContentValues();

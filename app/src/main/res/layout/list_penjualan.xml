@@ -56,7 +56,41 @@
             android:textSize="12sp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:textColor="@color/colorWhite"/>
+            android:textColor="@color/colorWhite"
+            />
+        <LinearLayout
+            android:id="@+id/onSelected"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            >
+            <TextView
+                android:id="@+id/qty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/semi_left_round"
+                android:text="1"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:id="@+id/edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/semi_right_round"
+                android:text="Ubah"
+                android:layout_weight="1"
+                android:gravity="center"
+                />
+
+        </LinearLayout>
+
+
 
     </RelativeLayout>
 

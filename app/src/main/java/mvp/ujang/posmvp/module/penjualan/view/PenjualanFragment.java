@@ -34,6 +34,7 @@ import mvp.ujang.posmvp.R;
 import mvp.ujang.posmvp.adapter.PenjualanAdapter;
 import mvp.ujang.posmvp.base.BaseFragment;
 import mvp.ujang.posmvp.module.penjualan.PenjualanContract;
+import mvp.ujang.posmvp.module.penjualan.model.Penjualan;
 import mvp.ujang.posmvp.module.produk.model.Produk;
 import mvp.ujang.posmvp.module.penjualan.presenter.PenjualanPresenter;
 import mvp.ujang.posmvp.module.kategori.model.Kategori;
@@ -69,7 +70,7 @@ public class PenjualanFragment extends BaseFragment implements PenjualanContract
     private PenjualanPresenter penjualanPresenter;
     private PenjualanAdapter adapter;
     private ArrayAdapter kategoriAdpater;
-    private List<Produk> produkList = new ArrayList<>();
+    private List<Penjualan> produkList = new ArrayList<>();
     private List<Kategori> kategoriList = new ArrayList<>();
     private List<String> itemsKategori = new ArrayList<>();
 
@@ -128,13 +129,13 @@ public class PenjualanFragment extends BaseFragment implements PenjualanContract
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Produk param = new Produk();
+                Penjualan param = new Penjualan();
                 if (spinner.getSelectedItemPosition() > 0)
                     param.setIdKategori(kategoriList.get(spinner.getSelectedItemPosition()-1).getIdKategori());
                 else
                     param.setIdKategori("0");
                 param.setNamaBarang(searchView.getQuery().toString());
-                penjualanPresenter.searchProduk(param);
+                penjualanPresenter.searchPenjualan(param);
             }
 
             @Override
@@ -167,12 +168,12 @@ public class PenjualanFragment extends BaseFragment implements PenjualanContract
     }
 
     public void fetchData(){
-       penjualanPresenter.loadProduk();
+       penjualanPresenter.loadPenjualan();
        penjualanPresenter.loadKategori();
     }
 
     @Override
-    public void listProduk(List<Produk> response) {
+    public void listProduk(List<Penjualan> response) {
         produkList.clear();
         produkList.addAll(response);
         adapter.notifyDataSetChanged();
@@ -211,7 +212,7 @@ public class PenjualanFragment extends BaseFragment implements PenjualanContract
     }
 
     @Override
-    public void detailProduk(final Produk produk) {
+    public void detailProduk(final Penjualan produk) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_bottom_sheet_dialog, null);
         final BottomSheetDialog dialog = new BottomSheetDialog(getContext());
         tvQty             = view.findViewById(R.id.tv_qty);
@@ -232,6 +233,8 @@ public class PenjualanFragment extends BaseFragment implements PenjualanContract
                 .load(Common.convertToByte(produk.getGambarBarang()))
                 .asBitmap()
                 .into(imgProduk);
+
+        tvQty.setText(produk.getJumlah());
 
         if (Integer.parseInt(produk.getStokBarang()) < 1){
             btnAddQty.setEnabled(false);
@@ -263,7 +266,7 @@ public class PenjualanFragment extends BaseFragment implements PenjualanContract
                     keranjang.setKdBarang(produk.getKdBarang());
                     keranjang.setJumlah(tvQty.getText().toString());
                     penjualanPresenter.addKeranjang(keranjang);
-                    penjualanPresenter.loadProduk();
+                    penjualanPresenter.loadPenjualan();
                     showCartDetail();
                 }
                 dialog.hide();
@@ -294,13 +297,13 @@ public class PenjualanFragment extends BaseFragment implements PenjualanContract
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Produk param = new Produk();
+                Penjualan param = new Penjualan();
                 if (spinner.getSelectedItemPosition() > 0)
                     param.setIdKategori(kategoriList.get(spinner.getSelectedItemPosition()-1).getIdKategori());
                 else
                     param.setIdKategori("0");
                 param.setNamaBarang(newText);
-                penjualanPresenter.searchProduk(param);
+                penjualanPresenter.searchPenjualan(param);
                 adapter.notifyDataSetChanged();
                 return true;
             }

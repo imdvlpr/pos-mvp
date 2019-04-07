@@ -65,7 +65,7 @@
             android:paddingRight="30dp"
             android:paddingLeft="30dp"
             android:layout_marginRight="20sp"
-            android:background="@color/colorAccent"
+            android:background="@drawable/button_cyrcle_accent"
             android:text="Pesan"
             android:textSize="11sp"
             android:textColor="@color/white" />

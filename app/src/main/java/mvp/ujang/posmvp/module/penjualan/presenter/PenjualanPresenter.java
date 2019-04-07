@@ -7,6 +7,7 @@ import java.util.List;
 
 import mvp.ujang.posmvp.base.Callback;
 import mvp.ujang.posmvp.module.penjualan.PenjualanContract;
+import mvp.ujang.posmvp.module.penjualan.model.Penjualan;
 import mvp.ujang.posmvp.module.produk.model.Produk;
 import mvp.ujang.posmvp.module.kategori.model.Kategori;
 import mvp.ujang.posmvp.module.keranjang.model.Keranjang;
@@ -36,14 +37,14 @@ public class PenjualanPresenter implements PenjualanContract.Presenter {
 
     @Override
     public void start() {
-        loadProduk();
+        loadPenjualan();
     }
 
     @Override
-    public void loadProduk() {
-        penjualanUsecase.loadProduk(new Callback.LoadCallback<Produk>() {
+    public void loadPenjualan() {
+        penjualanUsecase.loadPenjualan(new Callback.LoadCallback<Penjualan>() {
             @Override
-            public void onLoadSuccess(List<Produk> response) {
+            public void onLoadSuccess(List<Penjualan> response) {
                 view.listProduk(response);
             }
 
@@ -55,10 +56,10 @@ public class PenjualanPresenter implements PenjualanContract.Presenter {
     }
 
     @Override
-    public void searchProduk(@NonNull Produk param) {
-        penjualanUsecase.searchProduk(param, new Callback.LoadCallback<Produk>() {
+    public void searchPenjualan(@NonNull Penjualan param) {
+        penjualanUsecase.searchPenjualan(param, new Callback.LoadCallback<Penjualan>() {
             @Override
-            public void onLoadSuccess(List<Produk> response) {
+            public void onLoadSuccess(List<Penjualan> response) {
                 view.listProduk(response);
             }
 
@@ -67,22 +68,6 @@ public class PenjualanPresenter implements PenjualanContract.Presenter {
 
             }
         });
-    }
-
-
-    @Override
-    public void addProduk(@NonNull Produk produk) {
-
-    }
-
-    @Override
-    public void editProduk(@NonNull Produk produk) {
-
-    }
-
-    @Override
-    public void deleteProduk(@NonNull Produk produk) {
-
     }
 
     @Override

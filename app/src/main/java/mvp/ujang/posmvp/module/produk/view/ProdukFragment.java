@@ -41,6 +41,7 @@ import mvp.ujang.posmvp.module.produk.ProdukContract;
 import mvp.ujang.posmvp.module.produk.presenter.ProdukPresenter;
 import mvp.ujang.posmvp.usecase.kategori.KategoriUsecase;
 import mvp.ujang.posmvp.usecase.penjualan.PenjualanUsecase;
+import mvp.ujang.posmvp.usecase.produk.ProdukUsecase;
 import mvp.ujang.posmvp.utils.Common;
 
 public class ProdukFragment extends BaseFragment implements ProdukContract.ProdukView {
@@ -75,7 +76,7 @@ public class ProdukFragment extends BaseFragment implements ProdukContract.Produ
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_produk, null);
         context = getActivity().getApplicationContext();
-        produkPresenter  = new ProdukPresenter(PenjualanUsecase.getInstance(context),
+        produkPresenter  = new ProdukPresenter(ProdukUsecase.getInstance(context),
                 KategoriUsecase.getInstance(context),
                 this,context);
 

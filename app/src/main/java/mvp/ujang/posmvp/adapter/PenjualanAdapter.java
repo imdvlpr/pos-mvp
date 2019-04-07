@@ -7,21 +7,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
 import mvp.ujang.posmvp.R;
 import mvp.ujang.posmvp.module.penjualan.PenjualanContract;
+import mvp.ujang.posmvp.module.penjualan.model.Penjualan;
 import mvp.ujang.posmvp.module.produk.model.Produk;
 import mvp.ujang.posmvp.utils.Common;
 
 public class PenjualanAdapter extends RecyclerView.Adapter<PenjualanAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<Produk> produkList;
+    private List<Penjualan> produkList;
     private PenjualanContract.PenjualanView view;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -29,17 +33,22 @@ public class PenjualanAdapter extends RecyclerView.Adapter<PenjualanAdapter.MyVi
         public ImageView imgProduk;
         public TextView tvHarga;
         public Button btnPesan;
-
+        public LinearLayout onSelected;
+        public TextView edit;
+        public TextView qty;
         public MyViewHolder(View view) {
             super(view);
             tvNama = view.findViewById(R.id.tv_nama_produk);
             tvHarga = view.findViewById(R.id.tv_harga_produk);
             imgProduk = view.findViewById(R.id.img_produk);
             btnPesan = view.findViewById(R.id.btn_pesan);
+            onSelected = view.findViewById(R.id.onSelected);
+            edit = view.findViewById(R.id.edit);
+            qty = view.findViewById(R.id.qty);
         }
     }
 
-    public PenjualanAdapter(Context mContext, List<Produk> produkList, PenjualanContract.PenjualanView view) {
+    public PenjualanAdapter(Context mContext, List<Penjualan> produkList, PenjualanContract.PenjualanView view) {
         this.mContext   = mContext;
         this.produkList = produkList;
         this.view       = view;
@@ -55,15 +64,29 @@ public class PenjualanAdapter extends RecyclerView.Adapter<PenjualanAdapter.MyVi
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        final Produk produk = produkList.get(position);
+        final Penjualan produk = produkList.get(position);
         holder.tvNama.setText(produk.getNamaBarang());
         holder.tvHarga.setText(Common.convertToRupiah(produk.getHargaJualBarang()));
-        holder.btnPesan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                view.detailProduk(produk);
-            }
-        });
+        holder.qty.setText(produk.getJumlah());
+        if (produk.getJumlah().equals("0")){
+            holder.onSelected.setVisibility(View.GONE);
+            holder.btnPesan.setVisibility(View.VISIBLE);
+            holder.btnPesan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    view.detailProduk(produk);
+                }
+            });
+        }else{
+            holder.btnPesan.setVisibility(View.GONE);
+            holder.onSelected.setVisibility(View.VISIBLE);
+            holder.edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    view.detailProduk(produk);
+                }
+            });
+        }
 
         Glide.with(mContext).load(Common.convertToByte(produk.getGambarBarang()))
                             .asBitmap()
