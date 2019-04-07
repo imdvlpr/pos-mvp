@@ -31,6 +31,7 @@ public class PembayaranActivity extends BaseActivity implements PembayaranContra
     private TextView totalKembalian;
     private EditText bayar;
     private Button buttonProcess;
+    private Button buttonNext;
     private RelativeLayout pembayaranAwal;
     private RelativeLayout pembayaranAkhir;
     private String total;
@@ -66,6 +67,7 @@ public class PembayaranActivity extends BaseActivity implements PembayaranContra
         buttonProcess   = findViewById(R.id.buttonProcess);
         pembayaranAwal  = findViewById(R.id.pembayaranAwal);
         pembayaranAkhir = findViewById(R.id.pembayaranAkhir);
+        buttonNext      = findViewById(R.id.buttonNext);
     }
 
     @Override
@@ -86,6 +88,13 @@ public class PembayaranActivity extends BaseActivity implements PembayaranContra
                 }
 
                 messageBox("Jumlah uang sudah benar ?");
+            }
+        });
+
+        buttonNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
