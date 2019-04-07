@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,9 +13,8 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import mvp.ujang.posmvp.R;
-import mvp.ujang.posmvp.module.Penjualan.model.Produk;
-import mvp.ujang.posmvp.module.Penjualan.view.PenjualanFragment;
 import mvp.ujang.posmvp.module.kategori.model.Kategori;
+import mvp.ujang.posmvp.utils.Common;
 
 public class KategoriAdapter extends RecyclerView.Adapter<KategoriAdapter.MyViewHolder> {
 
@@ -52,10 +50,13 @@ public class KategoriAdapter extends RecyclerView.Adapter<KategoriAdapter.MyView
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Kategori kategori = kategoriList.get(position);
-        holder.tvNama.setText(kategori.getNama());
-        holder.jumlahProduk.setText(kategori.getJumlahBarang());
+        holder.tvNama.setText(kategori.getNamaKategori());
+        holder.jumlahProduk.setText(kategori.getTotalItem()+" ("+kategori.getTotalBarang()+" Pcs )");
 
-        Glide.with(mContext).load(kategori.getGambar()).into(holder.imgProduk);
+        if (!(kategori.getGambarKategori()==null))
+            Glide.with(mContext).load(Common.convertToByte(kategori.getGambarKategori()))
+                    .asBitmap()
+                    .into(holder.imgProduk);
     }
 
     @Override

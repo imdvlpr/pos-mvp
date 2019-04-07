@@ -1,11 +1,10 @@
 package mvp.ujang.posmvp;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,14 +13,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import mvp.ujang.posmvp.module.Penjualan.view.PenjualanFragment;
+import mvp.ujang.posmvp.helper.PermissionHelper;
+import mvp.ujang.posmvp.module.penjualan.view.PenjualanFragment;
 import mvp.ujang.posmvp.base.BaseActivity;
 import mvp.ujang.posmvp.module.kategori.view.KategoriFragment;
+import mvp.ujang.posmvp.module.keranjang.view.KeranjangActivity;
 import mvp.ujang.posmvp.module.produk.view.ProdukFragment;
 import mvp.ujang.posmvp.module.struk.view.StrukFragment;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+    private PermissionHelper permissionHelper;
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private NavigationView navigationView;
@@ -29,9 +30,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        permissionHelper = new PermissionHelper(this);
         findViews();
         initViews();
         initListeners();
+        checkAndRequestPermissions();
     }
 
     @Override
@@ -82,9 +85,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        Intent i;
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_keranjang) {
+            i = new Intent(this, KeranjangActivity.class);
+            startActivity(i);
             return true;
         }
         if (id == R.id.action_search) {
@@ -140,4 +145,28 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
+
+    private boolean checkAndRequestPermissions() {
+        permissionHelper.permissionListener(new PermissionHelper.PermissionListener() {
+            @Override
+            public void onPermissionCheckDone() {
+
+            }
+        });
+
+        permissionHelper.checkAndRequestPermissions();
+
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        permissionHelper.onRequestCallBack(requestCode, permissions, grantResults);
+    }
+
+
+
+
+
 }

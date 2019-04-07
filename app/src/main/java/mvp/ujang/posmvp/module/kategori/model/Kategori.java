@@ -1,37 +1,72 @@
 package mvp.ujang.posmvp.module.kategori.model;
 
-public class Kategori {
-    private String nama;
-    private int gambar;
-    private String  jumlahBarang;
 
-    public Kategori(String nama, String jumlahBarang, int gambar) {
-        this.nama = nama;
-        this.jumlahBarang = jumlahBarang;
-        this.gambar = gambar;
-    }
+import com.google.gson.annotations.SerializedName;
 
-    public String getNama() {
-        return nama;
-    }
+public class Kategori{
 
-    public void setNama(String nama) {
-        this.nama = nama;
-    }
+	@SerializedName("id_kategori")
+	private String idKategori;
 
-    public int getGambar() {
-        return gambar;
-    }
+	@SerializedName("nama_kategori")
+	private String namaKategori;
 
-    public void setGambar(int gambar) {
-        this.gambar = gambar;
-    }
+	@SerializedName("gambar_kategori")
+	private String gambarKategori;
 
-    public String getJumlahBarang() {
-        return jumlahBarang;
-    }
+	@SerializedName("total_item")
+	private String totalItem;
 
-    public void setJumlahBarang(String jumlahBarang) {
-        this.jumlahBarang = jumlahBarang;
-    }
+	@SerializedName("total_barang")
+	private String totalBarang;
+
+	public Kategori(){}
+
+	public Kategori(String idKategori, String namaKategori, String gambarKategori, String totalItem, String totalBarang) {
+		this.idKategori = idKategori;
+		this.namaKategori = namaKategori;
+		this.gambarKategori = gambarKategori;
+		this.totalItem = totalItem;
+		this.totalBarang = totalBarang;
+	}
+
+	public String getIdKategori() {
+		return idKategori;
+	}
+
+	public void setIdKategori(String idKategori) {
+		this.idKategori = idKategori;
+	}
+
+	public String getNamaKategori() {
+		return namaKategori;
+	}
+
+	public void setNamaKategori(String namaKategori) {
+		this.namaKategori = namaKategori;
+	}
+
+	public String getGambarKategori() {
+		return gambarKategori;
+	}
+
+	public void setGambarKategori(String gambarKategori) {
+		this.gambarKategori = gambarKategori;
+	}
+
+	public String getTotalItem() {
+		return totalItem;
+	}
+
+	public void setTotalItem(String totalItem) {
+		this.totalItem = totalItem;
+	}
+
+	public String getTotalBarang() {
+		return totalBarang;
+	}
+
+	public void setTotalBarang(String totalBarang) {
+		this.totalBarang = totalBarang;
+	}
 }

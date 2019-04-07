@@ -1,28 +1,72 @@
 package mvp.ujang.posmvp.module.produk.view;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import in.mayanknagwanshi.imagepicker.imageCompression.ImageCompressionListener;
+import in.mayanknagwanshi.imagepicker.imagePicker.ImagePicker;
 import mvp.ujang.posmvp.R;
 import mvp.ujang.posmvp.adapter.ProdukAdapter;
 import mvp.ujang.posmvp.base.BaseFragment;
-import mvp.ujang.posmvp.module.Penjualan.model.Produk;
+import mvp.ujang.posmvp.module.produk.model.Produk;
+import mvp.ujang.posmvp.module.kategori.model.Kategori;
+import mvp.ujang.posmvp.module.produk.ProdukContract;
+import mvp.ujang.posmvp.module.produk.presenter.ProdukPresenter;
+import mvp.ujang.posmvp.usecase.kategori.KategoriUsecase;
+import mvp.ujang.posmvp.usecase.penjualan.PenjualanUsecase;
+import mvp.ujang.posmvp.utils.Common;
 
-public class ProdukFragment extends BaseFragment {
+public class ProdukFragment extends BaseFragment implements ProdukContract.ProdukView {
+
     private RecyclerView recyclerView;
+    private FloatingActionButton addButton;
     private ProdukAdapter adapter;
-    private List<Produk> produkList;
+    private Spinner spinner;
+    private ImagePicker imagePicker;
+
+    private EditText namaBarang;
+    private EditText deskripsiBarang;
+    private EditText hargaBeli;
+    private EditText hargaJualBarang;
+    private EditText jumlah;
+    private EditText satuan;
+    private ImageView imgBarang;
+    private Spinner  spinnerKategori;
+    //Context Component
+    private Context context;
+
+    private ProdukPresenter produkPresenter;
+    private ArrayAdapter    kategoriAdpater;
+    private List<Produk>    produkList = new ArrayList<>();
+    private List<Kategori>  kategoriList = new ArrayList<>();
+    private List<String>    itemsKategori = new ArrayList<>();
 
     public ProdukFragment() {
     }
@@ -30,36 +74,68 @@ public class ProdukFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_produk, null);
+        context = getActivity().getApplicationContext();
+        produkPresenter  = new ProdukPresenter(PenjualanUsecase.getInstance(context),
+                KategoriUsecase.getInstance(context),
+                this,context);
 
         findViews(view);
         initViews(view);
         initListeners(view);
-
+        fetchData();
         return view;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
     public void findViews(View view) {
         recyclerView = view.findViewById(R.id.recycler_view);
+        spinner      = view.findViewById(R.id.kategori_spinner);
+        addButton    = view.findViewById(R.id.add_button);
+
     }
 
     @Override
     public void initViews(View view) {
-        produkList = new ArrayList<>();
-        generateList(produkList);
-        loadData();
+        generateList();
+        generateKategori();
     }
 
     @Override
     public void initListeners(View view) {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Produk param = new Produk();
+                if (spinner.getSelectedItemPosition() > 0)
+                    param.setIdKategori(kategoriList.get(spinner.getSelectedItemPosition()-1).getIdKategori());
+                else
+                    param.setIdKategori("0");
+
+                param.setNamaBarang("");
+                produkPresenter.searchProduk(param);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
+            }
+        });
     }
 
-    public void generateList(List<Produk> produkList){
+    public void generateList(){
         adapter = new ProdukAdapter(getContext(), produkList);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 1);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -67,62 +143,142 @@ public class ProdukFragment extends BaseFragment {
         recyclerView.setAdapter(adapter);
     }
 
-    private void loadData() {
-//        int[] covers = new int[]{
-//                R.drawable.img_produk,
-//                R.drawable.img_produk2,
-//                R.drawable.img_produk3,
-//                R.drawable.img_produk4};
-//
-//        Produk a = new Produk("Kopi Good Day", "Rp. 10.000", covers[0]);
-//        produkList.add(a);
-//
-//        a = new Produk("Sabun Dettol Natural", "Rp. 15.000", covers[1]);
-//        produkList.add(a);
-//
-//        a = new Produk("Sabun Dettol Anti Bakteri", "Rp. 25.000", covers[2]);
-//        produkList.add(a);
-//
-//        a = new Produk("Sampo Head & Shoulders", "Rp. 35.000", covers[3]);
-//        produkList.add(a);
-//
-//        a = new Produk("Kopi Good Day", "Rp. 10.000", covers[0]);
-//        produkList.add(a);
-//
-//        a = new Produk("Sabun Dettol Natural", "Rp. 15.000", covers[1]);
-//        produkList.add(a);
-//
-//        a = new Produk("Sabun Dettol Anti Bakteri", "Rp. 25.000", covers[2]);
-//        produkList.add(a);
-//
-//        a = new Produk("Sampo Head & Shoulders", "Rp. 35.000", covers[3]);
-//        produkList.add(a);
-//
-//        a = new Produk("Kopi Good Day", "Rp. 10.000", covers[0]);
-//        produkList.add(a);
-//
-//        a = new Produk("Sabun Dettol Natural", "Rp. 15.000", covers[1]);
-//        produkList.add(a);
-//
-//        a = new Produk("Sabun Dettol Anti Bakteri", "Rp. 25.000", covers[2]);
-//        produkList.add(a);
-//
-//        a = new Produk("Sampo Head & Shoulders", "Rp. 35.000", covers[3]);
-//        produkList.add(a);
-//
-//        a = new Produk("Kopi Good Day", "Rp. 10.000", covers[0]);
-//        produkList.add(a);
-//
-//        a = new Produk("Sabun Dettol Natural", "Rp. 15.000", covers[1]);
-//        produkList.add(a);
-//
-//        a = new Produk("Sabun Dettol Anti Bakteri", "Rp. 25.000", covers[2]);
-//        produkList.add(a);
-//
-//        a = new Produk("Sampo Head & Shoulders", "Rp. 35.000", covers[3]);
-//        produkList.add(a);
+    public void generateKategori(){
+        kategoriAdpater = new ArrayAdapter(context, R.layout.spinner_main, itemsKategori);
+        spinner.setAdapter(kategoriAdpater);
+    }
 
+
+    public void fetchData(){
+        produkPresenter.loadProduk();
+        produkPresenter.loadKategori();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        MenuItem item = menu.findItem(R.id.menu_spinner);
+        Spinner spinner = (Spinner) MenuItemCompat.getActionView(item);
+
+        //kategoriAdpater = new ArrayAdapter(context, R.layout.spinner_main, itemsKategori);
+        //spinner.setAdapter(kategoriAdpater);
+        //item.setVisible(true);
+        //
+        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
+        //R.array.spinner_list_item_array, android.R.layout.simple_spinner_item);
+        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //spinner.setAdapter(adapter);
+    }
+
+    @Override
+    public void listProduk(List<Produk> response) {
+        produkList.clear();
+        produkList.addAll(response);
         adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void listKategori(List<Kategori> response) {
+        kategoriList.clear();
+        itemsKategori.clear();
+        kategoriList.addAll(response);
+        itemsKategori.add("KATEGORI");
+        for(Kategori item : kategoriList)
+            itemsKategori.add(item.getNamaKategori().toUpperCase());
+
+        kategoriAdpater.notifyDataSetChanged();
+    }
+
+    @Override
+    public void addProduk(Produk response) {
+        produkPresenter.loadProduk();
+    }
+
+    @Override
+    public void detailProduk(Produk response) {
+
+    }
+
+    @Override
+    public void setPresenter(@NonNull ProdukContract.Presenter presenter) {
+
+    }
+
+    public void showDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Barang");
+        final View viewInflated = LayoutInflater.from(getContext()).inflate(R.layout.add_produk, (ViewGroup) getView(), false);
+
+        namaBarang      = viewInflated.findViewById(R.id.nama_barang);
+        deskripsiBarang = viewInflated.findViewById(R.id.deskripsi_barang);
+        hargaBeli       = viewInflated.findViewById(R.id.harga_beli);
+        hargaJualBarang = viewInflated.findViewById(R.id.harga_jual_barang);
+        jumlah          = viewInflated.findViewById(R.id.jumlah);
+        satuan          = viewInflated.findViewById(R.id.satuan);
+        imgBarang     = viewInflated.findViewById(R.id.imgBarang);
+        spinnerKategori = viewInflated.findViewById(R.id.spinner);
+        builder.setView(viewInflated);
+        spinnerKategori.setAdapter(kategoriAdpater);
+
+        builder.setPositiveButton("Simpan", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Produk produk = new Produk();
+                produk.setKdBarang("BRNG_"+ Common.getTextDateTime());
+                produk.setNamaBarang(namaBarang.getText().toString());
+                produk.setDeskripsiBarang(deskripsiBarang.getText().toString());
+                produk.setHargaJualBarang(hargaJualBarang.getText().toString());
+                produk.setStokBarang(jumlah.getText().toString());
+                produk.setSatuan(satuan.getText().toString());
+                produk.setIdKategori(kategoriList.get(spinnerKategori.getSelectedItemPosition()-1).getIdKategori());
+                produk.setGambarBarang(Common.encodeToBase64(Common.convertImageViewToBitmap(imgBarang), Bitmap.CompressFormat.JPEG, 100));
+                produkPresenter.addProduk(produk);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        imgBarang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+            }
+        });
+        builder.show();
+    }
+
+    private void selectImage() {
+        imagePicker = new ImagePicker();
+        imagePicker.withFragment(this).withCompression(true).start();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ImagePicker.SELECT_IMAGE && resultCode == Activity.RESULT_OK) {
+            imagePicker.addOnCompressListener(new ImageCompressionListener() {
+                @Override
+                public void onStart() {
+
+                }
+
+                @Override
+                public void onCompressed(String filePath) {
+                    Bitmap selectedImage = BitmapFactory.decodeFile(filePath);
+                    imgBarang.setImageBitmap(selectedImage);
+                }
+            });
+            String filePath = imagePicker.getImageFilePath(data);
+            if (filePath != null) {
+                Bitmap selectedImage = BitmapFactory.decodeFile(filePath);
+                imgBarang.setImageBitmap(selectedImage);
+            }
+        }
+    }
 }

@@ -2,8 +2,6 @@ package mvp.ujang.posmvp.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +14,15 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import mvp.ujang.posmvp.R;
-import mvp.ujang.posmvp.module.Penjualan.model.Produk;
-import mvp.ujang.posmvp.module.Penjualan.view.PenjualanFragment;
+import mvp.ujang.posmvp.module.penjualan.PenjualanContract;
+import mvp.ujang.posmvp.module.produk.model.Produk;
+import mvp.ujang.posmvp.utils.Common;
 
 public class PenjualanAdapter extends RecyclerView.Adapter<PenjualanAdapter.MyViewHolder> {
 
     private Context mContext;
     private List<Produk> produkList;
+    private PenjualanContract.PenjualanView view;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tvNama;
@@ -39,9 +39,10 @@ public class PenjualanAdapter extends RecyclerView.Adapter<PenjualanAdapter.MyVi
         }
     }
 
-    public PenjualanAdapter(Context mContext, List<Produk> produkList) {
-        this.mContext = mContext;
+    public PenjualanAdapter(Context mContext, List<Produk> produkList, PenjualanContract.PenjualanView view) {
+        this.mContext   = mContext;
         this.produkList = produkList;
+        this.view       = view;
     }
 
     @Override
@@ -54,20 +55,19 @@ public class PenjualanAdapter extends RecyclerView.Adapter<PenjualanAdapter.MyVi
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        Produk produk = produkList.get(position);
-        holder.tvNama.setText(produk.getNAMABARANG());
-        holder.tvHarga.setText(produk.getHARGAJUALBARANG());
+        final Produk produk = produkList.get(position);
+        holder.tvNama.setText(produk.getNamaBarang());
+        holder.tvHarga.setText(Common.convertToRupiah(produk.getHargaJualBarang()));
         holder.btnPesan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PenjualanFragment fragment = new PenjualanFragment();
-                fragment.showBottomSheetDialog();
+                view.detailProduk(produk);
             }
         });
 
-        byte[] imageByteArray = Base64.decode(produk.getGAMBARBARANG().replace("data:image/jpeg;base64,",""), Base64.DEFAULT);
-        Log.d("imageByteArray",imageByteArray.toString());
-        Glide.with(mContext).load(imageByteArray).asBitmap().into(holder.imgProduk);
+        Glide.with(mContext).load(Common.convertToByte(produk.getGambarBarang()))
+                            .asBitmap()
+                            .into(holder.imgProduk);
     }
 
     @Override

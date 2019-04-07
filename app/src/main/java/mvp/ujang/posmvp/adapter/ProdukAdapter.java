@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,7 +13,8 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import mvp.ujang.posmvp.R;
-import mvp.ujang.posmvp.module.Penjualan.model.Produk;
+import mvp.ujang.posmvp.module.produk.model.Produk;
+import mvp.ujang.posmvp.utils.Common;
 
 public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.MyViewHolder> {
 
@@ -50,10 +50,12 @@ public class ProdukAdapter extends RecyclerView.Adapter<ProdukAdapter.MyViewHold
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Produk produk = produkList.get(position);
-        holder.tvNama.setText(produk.getNAMABARANG());
-        holder.tvHarga.setText(produk.getHARGAJUALBARANG());
+        holder.tvNama.setText(produk.getNamaBarang());
+        holder.tvHarga.setText(produk.getHargaJualBarang());
 
-        //Glide.with(mContext).load(produk.getImage()).into(holder.imgProduk);
+        Glide.with(mContext).load(Common.convertToByte(produk.getGambarBarang()))
+                .asBitmap()
+                .into(holder.imgProduk);
     }
 
     @Override
