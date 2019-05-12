@@ -31,6 +31,12 @@ public class Common {
         return String.valueOf(kursIndonesia.format(Double.parseDouble(value)));
     }
 
+    public static String getDateByFormat(String format) {
+        Calendar callForDate = Calendar.getInstance();
+        java.text.SimpleDateFormat currentDate = new java.text.SimpleDateFormat(format);
+        return currentDate.format(callForDate.getTime());
+    }
+
     public static String getDateTime() {
         Calendar callForDate = Calendar.getInstance();
         java.text.SimpleDateFormat currentDate = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -53,7 +59,6 @@ public class Common {
         catch (Exception e) {
             return null;
         }
-
     }
 
     public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat, int quality) {
@@ -62,6 +67,20 @@ public class Common {
         ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
         image.compress(compressFormat, quality, byteArrayOS);
         return Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT);
+    }
+
+    public static String convertDate(String date,String currentFormat,String newFormat){
+        java.text.SimpleDateFormat tempDate = new java.text.SimpleDateFormat(currentFormat);
+        Date date1 = new Date();
+        try {
+            date1=tempDate.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        java.text.SimpleDateFormat currentDate = new java.text.SimpleDateFormat(newFormat);
+        return currentDate.format(date1);
     }
 
     public static String convertDateLong(String date){
@@ -75,6 +94,21 @@ public class Common {
 
 
         java.text.SimpleDateFormat currentDate = new java.text.SimpleDateFormat("EEE, d MMM yyyy");
+        return currentDate.format(date1);
+    }
+
+
+    public static String getMonthName(String month){
+        java.text.SimpleDateFormat tempDate = new java.text.SimpleDateFormat("MM");
+        Date date1 = new Date();
+        try {
+            date1=tempDate.parse(month);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        java.text.SimpleDateFormat currentDate = new java.text.SimpleDateFormat("MMM");
         return currentDate.format(date1);
     }
 

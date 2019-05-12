@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import mvp.ujang.posmvp.helper.PermissionHelper;
+import mvp.ujang.posmvp.module.dashboard.view.DashboardFragment;
 import mvp.ujang.posmvp.module.penjualan.view.PenjualanFragment;
 import mvp.ujang.posmvp.base.BaseActivity;
 import mvp.ujang.posmvp.module.kategori.view.KategoriFragment;
@@ -116,19 +117,24 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         //initializing the fragment object which is selected
         switch (itemId) {
             case R.id.nav_penjualan:
+                getSupportActionBar().setTitle("Barang");
                 fragment = new PenjualanFragment();
                 break;
             case R.id.nav_struk_penjualan:
+                getSupportActionBar().setTitle("Struk Penjualan");
                 fragment = new StrukFragment();
                 break;
             case R.id.nav_produk_kategori:
+                getSupportActionBar().setTitle("Kategori");
                 fragment = new KategoriFragment();
                 break;
             case R.id.nav_produk_item:
+                getSupportActionBar().setTitle("Produk");
                 fragment = new ProdukFragment();
                 break;
             case R.id.nav_laporan_harian:
-                fragment = new PenjualanFragment();
+                getSupportActionBar().setTitle("Laporan");
+                fragment = new DashboardFragment();
                 break;
             case R.id.nav_laporan_bulanan:
                 fragment = new PenjualanFragment();

@@ -80,7 +80,7 @@ public class KeranjangAdapter extends RecyclerView.Adapter<KeranjangAdapter.MyVi
         holder.btnAddQty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!holder.tvQty.getText().toString().equals("1"))
+                if(Integer.parseInt(holder.tvQty.getText().toString()) < Integer.parseInt(keranjang.getStokBarang()))//!holder.tvQty.getText().toString().equals("1"))
                     holder.tvQty.setText(String.valueOf(Integer.parseInt(holder.tvQty.getText().toString())+1));
 
                 onItemClickListener.onItemClick(v,position,holder.tvQty.getText().toString());

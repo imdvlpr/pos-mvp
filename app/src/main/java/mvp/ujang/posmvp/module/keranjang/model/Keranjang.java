@@ -22,16 +22,29 @@ public class Keranjang{
 	@SerializedName("gambar_barang")
 	private String gambarBarang;
 
+	@SerializedName("stok_barang")
+	private String stokBarang;
+
 	public Keranjang(){}
 
-	public Keranjang(String idKeranjang, String jumlah, String kdBarang, String namaBarang, String hargaJualBarang, String gambarBarang) {
+	public Keranjang(String idKeranjang, String jumlah, String kdBarang, String namaBarang, String hargaJualBarang, String gambarBarang, String stokBarang) {
 		this.idKeranjang = idKeranjang;
 		this.jumlah = jumlah;
 		this.kdBarang = kdBarang;
 		this.namaBarang = namaBarang;
 		this.hargaJualBarang = hargaJualBarang;
 		this.gambarBarang = gambarBarang;
+		this.stokBarang = stokBarang;
 	}
+
+//	public Keranjang(String idKeranjang, String jumlah, String kdBarang, String namaBarang, String hargaJualBarang, String gambarBarang) {
+//		this.idKeranjang = idKeranjang;
+//		this.jumlah = jumlah;
+//		this.kdBarang = kdBarang;
+//		this.namaBarang = namaBarang;
+//		this.hargaJualBarang = hargaJualBarang;
+//		this.gambarBarang = gambarBarang;
+//	}
 
 	public String getIdKeranjang() {
 		return idKeranjang;
@@ -81,6 +94,14 @@ public class Keranjang{
 		this.gambarBarang = gambarBarang;
 	}
 
+	public String getStokBarang() {
+		return stokBarang;
+	}
+
+	public void setStokBarang(String stokBarang) {
+		this.stokBarang = stokBarang;
+	}
+
 	@Override
 	public String toString() {
 		return "Keranjang{" +
@@ -90,6 +111,7 @@ public class Keranjang{
 				", namaBarang='" + namaBarang + '\'' +
 				", hargaJualBarang='" + hargaJualBarang + '\'' +
 				", gambarBarang='" + gambarBarang + '\'' +
+				", stokBarang='" + stokBarang + '\'' +
 				'}';
 	}
 }

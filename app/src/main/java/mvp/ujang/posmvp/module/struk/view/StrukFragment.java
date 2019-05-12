@@ -131,5 +131,11 @@ public class StrukFragment extends BaseFragment implements StrukContract.StrukVi
     public void fetchData(){
         strukPresenter.loadStruk();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        fetchData();
+    }
 }
 

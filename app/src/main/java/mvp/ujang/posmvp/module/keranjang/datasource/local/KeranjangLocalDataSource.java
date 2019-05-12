@@ -59,7 +59,8 @@ public class KeranjangLocalDataSource implements KeranjangDataSource {
                                 cursor.getString(cursor.getColumnIndexOrThrow("kd_barang")),
                                 cursor.getString(cursor.getColumnIndexOrThrow("nama_barang")),
                                 cursor.getString(cursor.getColumnIndexOrThrow("harga_jual_barang")),
-                                cursor.getString(cursor.getColumnIndexOrThrow("gambar_barang"))
+                                cursor.getString(cursor.getColumnIndexOrThrow("gambar_barang")),
+                                cursor.getString(cursor.getColumnIndexOrThrow("stok_barang"))
                         );
                         list.add(item);
                     } while (cursor.moveToNext());

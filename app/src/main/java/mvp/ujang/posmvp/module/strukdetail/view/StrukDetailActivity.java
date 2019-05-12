@@ -1,11 +1,13 @@
 package mvp.ujang.posmvp.module.strukdetail.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +18,8 @@ import java.util.List;
 import mvp.ujang.posmvp.R;
 import mvp.ujang.posmvp.adapter.StrukDetailAdapter;
 import mvp.ujang.posmvp.base.BaseActivity;
+import mvp.ujang.posmvp.module.refund.model.RefundDetail;
+import mvp.ujang.posmvp.module.refund.view.RefundDetailActivity;
 import mvp.ujang.posmvp.module.struk.model.Struk;
 import mvp.ujang.posmvp.module.strukdetail.StrukDetailContract;
 import mvp.ujang.posmvp.module.strukdetail.model.StrukDetail;
@@ -78,6 +82,7 @@ public class StrukDetailActivity extends BaseActivity implements StrukDetailCont
 
     @Override
     public void initViews() {
+        getSupportActionBar().setTitle("#"+transaksi);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -105,6 +110,15 @@ public class StrukDetailActivity extends BaseActivity implements StrukDetailCont
         switch (item.getItemId()){
             case android.R.id.home:
                 finish();
+                break;
+
+            case R.id.refund:
+                Intent i = new Intent(context, RefundDetailActivity.class);
+                i.putExtra("kdTransaksi",transaksi);
+                i.putExtra("tglTransaksi",tglTransaksi);
+                i.putExtra("totalTransaksi",totalTransaksi);
+                i.putExtra("tunai",uangTunai);
+                startActivity(i);
                 break;
         }
 
@@ -134,5 +148,18 @@ public class StrukDetailActivity extends BaseActivity implements StrukDetailCont
     @Override
     public void setPresenter(@NonNull StrukDetailContract.Presenter presenter) {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_refund, menu);
+        return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetchData();
     }
 }
