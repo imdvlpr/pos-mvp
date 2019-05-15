@@ -15,6 +15,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,6 +36,7 @@ import in.mayanknagwanshi.imagepicker.imagePicker.ImagePicker;
 import mvp.ujang.posmvp.R;
 import mvp.ujang.posmvp.adapter.ProdukAdapter;
 import mvp.ujang.posmvp.base.BaseFragment;
+import mvp.ujang.posmvp.module.penjualan.model.Penjualan;
 import mvp.ujang.posmvp.module.produk.model.Produk;
 import mvp.ujang.posmvp.module.kategori.model.Kategori;
 import mvp.ujang.posmvp.module.produk.ProdukContract;
@@ -60,6 +62,7 @@ public class ProdukFragment extends BaseFragment implements ProdukContract.Produ
     private EditText satuan;
     private ImageView imgBarang;
     private Spinner  spinnerKategori;
+    private SearchView searchView;
     //Context Component
     private Context context;
 
@@ -153,23 +156,6 @@ public class ProdukFragment extends BaseFragment implements ProdukContract.Produ
     public void fetchData(){
         produkPresenter.loadProduk();
         produkPresenter.loadKategori();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-
-        MenuItem item = menu.findItem(R.id.menu_spinner);
-        Spinner spinner = (Spinner) MenuItemCompat.getActionView(item);
-
-        //kategoriAdpater = new ArrayAdapter(context, R.layout.spinner_main, itemsKategori);
-        //spinner.setAdapter(kategoriAdpater);
-        //item.setVisible(true);
-        //
-        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
-        //R.array.spinner_list_item_array, android.R.layout.simple_spinner_item);
-        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //spinner.setAdapter(adapter);
     }
 
     @Override
@@ -281,5 +267,37 @@ public class ProdukFragment extends BaseFragment implements ProdukContract.Produ
                 imgBarang.setImageBitmap(selectedImage);
             }
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Do something that differs the Activity's menu here
+        super.onCreateOptionsMenu(menu, inflater);
+        MenuItem search = menu.findItem(R.id.action_search);
+        searchView = (SearchView) MenuItemCompat.getActionView(search);
+        search(searchView);
+    }
+
+    private void search(SearchView searchView) {
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Produk param = new Produk();
+                if (spinner.getSelectedItemPosition() > 0)
+                    param.setIdKategori(kategoriList.get(spinner.getSelectedItemPosition()-1).getIdKategori());
+                else
+                    param.setIdKategori("0");
+                param.setNamaBarang(newText);
+                produkPresenter.searchProduk(param);
+                adapter.notifyDataSetChanged();
+                return true;
+            }
+        });
     }
 }

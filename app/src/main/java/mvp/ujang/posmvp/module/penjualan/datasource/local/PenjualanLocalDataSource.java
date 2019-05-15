@@ -82,7 +82,7 @@ public class PenjualanLocalDataSource implements PenjualanDataSource {
     @Override
     public void searchPenjualan(Penjualan parameter, @NonNull Callback.LoadCallback<Penjualan> callback) {
         String query = "SELECT B.*,ifnull(K.JUMLAH,'0') AS jumlah  FROM BARANG B LEFT JOIN KERANJANG K ON B.KD_BARANG  = K.KD_BARANG";
-        query +=  "(B.id_kategori = '"+parameter.getIdKategori()+ "' or "+parameter.getIdKategori()+" = 0) "+
+        query +=  " where (B.id_kategori = '"+parameter.getIdKategori()+ "' or "+parameter.getIdKategori()+" = 0) "+
                 " and (B.nama_barang like '%"+parameter.getNamaBarang()+  "%' or '"+parameter.getNamaBarang()+"' isnull) ";
 
         ArrayList<Penjualan> list = new ArrayList<>();

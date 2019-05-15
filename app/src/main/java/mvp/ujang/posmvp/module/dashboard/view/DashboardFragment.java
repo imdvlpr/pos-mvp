@@ -16,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +60,8 @@ public class DashboardFragment extends BaseFragment implements DashboardContract
     private TextView netSales;
     private TextView grossProfit;
     private DatePickerEditText datePicker;
+    private Spinner spinnerLaporan;
+
 
     public DashboardFragment() {
     }
@@ -96,6 +100,7 @@ public class DashboardFragment extends BaseFragment implements DashboardContract
         grossProfit = view.findViewById(R.id.grossProfit);
         datePicker  = view.findViewById(R.id.datePicker);
         recyclerView= view.findViewById(R.id.recycler_view);
+        spinnerLaporan=view.findViewById(R.id.spinnerLaporan);
         datePicker.setManager(getActivity().getSupportFragmentManager());
         datePicker.setText(Common.getDateByFormat("dd/MM/yyyy"));
     }
@@ -103,6 +108,7 @@ public class DashboardFragment extends BaseFragment implements DashboardContract
     @Override
     public void initViews(View view) {
         generateList();
+        showSpinnerLaporan();
     }
 
     @Override
@@ -126,6 +132,18 @@ public class DashboardFragment extends BaseFragment implements DashboardContract
                 fetchData(data);
             }
         });
+    }
+
+
+    public void showSpinnerLaporan(){
+//        spinnerLaporan.setVisibility(View.VISIBLE);
+//        String[] frags = new String[]{
+//                "Harian",
+//                "Bulanan",
+//                "Tahunan",
+//        };
+//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,frags);
+//        spinnerLaporan.setAdapter(arrayAdapter);
     }
 
     public void generateList(){
