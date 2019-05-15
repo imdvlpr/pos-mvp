@@ -41,6 +41,12 @@ public class DashboardDetail{
 	@SerializedName("tanggal")
 	private String tanggal;
 
+	@SerializedName("mode")
+	private String mode;
+
+	@SerializedName("tahun")
+	private String tahun;
+
 
 	public void setTotalItem(String totalItem){
 		this.totalItem = totalItem;
@@ -138,6 +144,22 @@ public class DashboardDetail{
 		this.tanggal = tanggal;
 	}
 
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+
+	public String getTahun() {
+		return tahun;
+	}
+
+	public void setTahun(String tahun) {
+		this.tahun = tahun;
+	}
+
 	@Override
 	public String toString() {
 		return "DashboardDetail{" +
@@ -153,6 +175,8 @@ public class DashboardDetail{
 				", total='" + total + '\'' +
 				", totalHarga='" + totalHarga + '\'' +
 				", tanggal='" + tanggal + '\'' +
+				", mode='" + mode + '\'' +
+				", tahun='" + tahun + '\'' +
 				'}';
 	}
 }
