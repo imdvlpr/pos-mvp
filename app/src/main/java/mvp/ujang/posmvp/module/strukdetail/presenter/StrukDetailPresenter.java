@@ -9,14 +9,17 @@ import mvp.ujang.posmvp.module.struk.StrukContract;
 import mvp.ujang.posmvp.module.struk.model.Struk;
 import mvp.ujang.posmvp.module.strukdetail.StrukDetailContract;
 import mvp.ujang.posmvp.module.strukdetail.model.StrukDetail;
+import mvp.ujang.posmvp.module.strukdetail.view.StrukDetailActivity;
 import mvp.ujang.posmvp.usecase.struk.StrukUsecase;
 import mvp.ujang.posmvp.usecase.strukdetail.StrukDetailUsecase;
+import mvp.ujang.posmvp.utils.Common;
 
 public class StrukDetailPresenter implements StrukDetailContract.Presenter {
 
     private StrukDetailContract.StrukView view;
     private StrukDetailUsecase strukUsecase;
     private Context context;
+    private String TAG = StrukDetailActivity.class.getSimpleName();
 
     public StrukDetailPresenter(StrukDetailUsecase strukUsecase,
                                 StrukDetailContract.StrukView view,
@@ -35,15 +38,17 @@ public class StrukDetailPresenter implements StrukDetailContract.Presenter {
 
     @Override
     public void loadStruk(StrukDetail strukDetail) {
+        final long startTime = System.currentTimeMillis();
         strukUsecase.loadStruk(strukDetail,new Callback.LoadCallback<StrukDetail>() {
             @Override
             public void onLoadSuccess(List<StrukDetail> response) {
                 view.listStruk(response);
+                Common.printTimeMillis(TAG+" Load Data Struk Detail",startTime,System.currentTimeMillis());
             }
 
             @Override
             public void onLoadFailed() {
-
+                Common.printTimeMillis(TAG+" Load Data Struk Detail",startTime,System.currentTimeMillis());
             }
         });
     }

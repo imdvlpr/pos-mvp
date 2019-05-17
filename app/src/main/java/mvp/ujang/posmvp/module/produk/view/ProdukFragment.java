@@ -283,19 +283,20 @@ public class ProdukFragment extends BaseFragment implements ProdukContract.Produ
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
                 Produk param = new Produk();
                 if (spinner.getSelectedItemPosition() > 0)
                     param.setIdKategori(kategoriList.get(spinner.getSelectedItemPosition()-1).getIdKategori());
                 else
                     param.setIdKategori("0");
-                param.setNamaBarang(newText);
+                param.setNamaBarang(query);
                 produkPresenter.searchProduk(param);
                 adapter.notifyDataSetChanged();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
                 return true;
             }
         });

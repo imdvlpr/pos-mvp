@@ -11,6 +11,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
+import android.util.TimingLogger;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,8 +27,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.nikitakozlov.pury.annotations.MethodProfiling;
+import com.nikitakozlov.pury.annotations.StartProfiling;
+import com.nikitakozlov.pury.annotations.StopProfiling;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +50,7 @@ import mvp.ujang.posmvp.module.keranjang.view.KeranjangActivity;
 import mvp.ujang.posmvp.usecase.kategori.KategoriUsecase;
 import mvp.ujang.posmvp.usecase.keranjang.KeranjangUsecase;
 import mvp.ujang.posmvp.usecase.penjualan.PenjualanUsecase;
+import mvp.ujang.posmvp.utils.AppConstants;
 import mvp.ujang.posmvp.utils.Common;
 
 public class PenjualanFragment extends BaseFragment implements PenjualanContract.PenjualanView {
@@ -74,8 +82,14 @@ public class PenjualanFragment extends BaseFragment implements PenjualanContract
     private List<Kategori> kategoriList = new ArrayList<>();
     private List<String> itemsKategori = new ArrayList<>();
 
+    private String TAG = PenjualanFragment.class.getSimpleName();
+
+
+
+
     public PenjualanFragment() {
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -167,9 +181,10 @@ public class PenjualanFragment extends BaseFragment implements PenjualanContract
         spinner.setAdapter(kategoriAdpater);
     }
 
+
     public void fetchData(){
-       penjualanPresenter.loadPenjualan();
-       penjualanPresenter.loadKategori();
+        penjualanPresenter.loadPenjualan();
+        penjualanPresenter.loadKategori();
     }
 
     @Override
@@ -287,24 +302,24 @@ public class PenjualanFragment extends BaseFragment implements PenjualanContract
         search(searchView);
     }
 
-    private void search(SearchView searchView) {
-
+    private void search(final SearchView searchView) {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
                 Penjualan param = new Penjualan();
                 if (spinner.getSelectedItemPosition() > 0)
                     param.setIdKategori(kategoriList.get(spinner.getSelectedItemPosition()-1).getIdKategori());
                 else
                     param.setIdKategori("0");
-                param.setNamaBarang(newText);
+                param.setNamaBarang(query);
                 penjualanPresenter.searchPenjualan(param);
                 adapter.notifyDataSetChanged();
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
                 return true;
             }
         });

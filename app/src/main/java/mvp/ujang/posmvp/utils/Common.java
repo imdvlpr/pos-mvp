@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.icu.text.SimpleDateFormat;
 import android.util.Base64;
+import android.util.Log;
 import android.widget.ImageView;
 
 import java.io.ByteArrayOutputStream;
@@ -111,5 +112,10 @@ public class Common {
         java.text.SimpleDateFormat currentDate = new java.text.SimpleDateFormat("MMM");
         return currentDate.format(date1);
     }
+
+    public static void printTimeMillis(String TAG,long startTime,long endTime){
+        Log.d(TAG,String.valueOf(endTime - startTime)+" ms");
+    }
+
 
 }
