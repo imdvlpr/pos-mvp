@@ -205,6 +205,14 @@ public class ProdukFragment extends BaseFragment implements ProdukContract.Produ
         satuan          = viewInflated.findViewById(R.id.satuan);
         imgBarang     = viewInflated.findViewById(R.id.imgBarang);
         spinnerKategori = viewInflated.findViewById(R.id.spinner);
+
+        namaBarang.setCursorVisible(false);
+        deskripsiBarang.setCursorVisible(false);
+        hargaBeli.setCursorVisible(false);
+        hargaJualBarang.setCursorVisible(false);
+        jumlah.setCursorVisible(false);
+        satuan.setCursorVisible(false);
+
         builder.setView(viewInflated);
         spinnerKategori.setAdapter(kategoriAdpater);
 
