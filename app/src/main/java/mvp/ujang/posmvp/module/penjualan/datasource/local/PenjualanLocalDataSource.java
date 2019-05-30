@@ -1,22 +1,16 @@
 package mvp.ujang.posmvp.module.penjualan.datasource.local;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.nikitakozlov.pury.annotations.MethodProfiling;
-
 import java.util.ArrayList;
 
 import mvp.ujang.posmvp.base.Callback;
 import mvp.ujang.posmvp.module.penjualan.datasource.PenjualanDataSource;
 import mvp.ujang.posmvp.module.penjualan.model.Penjualan;
-import mvp.ujang.posmvp.module.produk.datasource.ProdukDataSource;
-import mvp.ujang.posmvp.module.produk.model.Produk;
-import mvp.ujang.posmvp.utils.AppConstants;
 import mvp.ujang.posmvp.utils.Connection;
 
 public class PenjualanLocalDataSource implements PenjualanDataSource {

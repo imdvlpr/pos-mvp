@@ -12,14 +12,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 import mvp.ujang.posmvp.R;
 import mvp.ujang.posmvp.module.penjualan.PenjualanContract;
 import mvp.ujang.posmvp.module.penjualan.model.Penjualan;
-import mvp.ujang.posmvp.module.produk.model.Produk;
 import mvp.ujang.posmvp.utils.Common;
 
 public class PenjualanAdapter extends RecyclerView.Adapter<PenjualanAdapter.MyViewHolder> {

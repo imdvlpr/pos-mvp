@@ -10,10 +10,10 @@ public interface DashboardDataSource {
     void loadInfoGross(DashboardDetail dashboardDetail, @NonNull Callback.LoadCallback<DashboardDetail> callback);
     void loadListBarang(DashboardDetail dashboardDetail, @NonNull Callback.LoadCallback<DashboardDetail> callback);
 
-    //    void loadStruk(DashboardDetail strukDetail, @NonNull Callback.LoadCallback<DashboardDetail> callback);
+    //    void loadTransaksi(DashboardDetail strukDetail, @NonNull Callback.LoadCallback<DashboardDetail> callback);
 //    void refundBarang(DashboardDetail strukDetail, @NonNull Callback.AddCallback<DashboardDetail> callback);
-//    void searchProduk(Produk parameter, @NonNull Callback.LoadCallback<Produk> loadProdukCallback);
-//    void addProduk(@NonNull Produk produk, @NonNull Callback.AddCallback<Produk> addProdukCallback);
-//    void editProduk(@NonNull Produk produk, @NonNull Callback.EditCallback<Produk> editProdukCallback);
-//    void deleteProduk(@NonNull Produk produk, @NonNull Callback.DeleteCallback<Produk> deleteProdukCallback);
+//    void searchBarag(Barang parameter, @NonNull Callback.LoadCallback<Barang> loadProdukCallback);
+//    void addBarang(@NonNull Barang produk, @NonNull Callback.AddCallback<Barang> addProdukCallback);
+//    void editBarang(@NonNull Barang produk, @NonNull Callback.EditCallback<Barang> editProdukCallback);
+//    void deleteBarang(@NonNull Barang produk, @NonNull Callback.DeleteCallback<Barang> deleteProdukCallback);
 }

@@ -132,7 +132,7 @@ public class Penjualan {
 	@Override
  	public String toString(){
 		return 
-			"Produk{" + 
+			"Barang{" +
 			"id_kategori = '" + idKategori + '\'' + 
 			",harga_jual_barang = '" + hargaJualBarang + '\'' + 
 			",satuan = '" + satuan + '\'' + 

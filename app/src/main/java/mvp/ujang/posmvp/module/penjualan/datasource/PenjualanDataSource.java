@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 
 import mvp.ujang.posmvp.base.Callback;
 import mvp.ujang.posmvp.module.penjualan.model.Penjualan;
-import mvp.ujang.posmvp.module.produk.model.Produk;
 
 public interface PenjualanDataSource {
     void loadPenjualan(@NonNull Callback.LoadCallback<Penjualan> callback);

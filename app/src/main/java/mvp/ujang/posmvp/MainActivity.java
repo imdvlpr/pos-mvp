@@ -19,8 +19,8 @@ import mvp.ujang.posmvp.module.penjualan.view.PenjualanFragment;
 import mvp.ujang.posmvp.base.BaseActivity;
 import mvp.ujang.posmvp.module.kategori.view.KategoriFragment;
 import mvp.ujang.posmvp.module.keranjang.view.KeranjangActivity;
-import mvp.ujang.posmvp.module.produk.view.ProdukFragment;
-import mvp.ujang.posmvp.module.struk.view.StrukFragment;
+import mvp.ujang.posmvp.module.barang.view.ProdukFragment;
+import mvp.ujang.posmvp.module.transaksi.view.StrukFragment;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     private PermissionHelper permissionHelper;
@@ -121,7 +121,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 fragment = new PenjualanFragment();
                 break;
             case R.id.nav_struk_penjualan:
-                getSupportActionBar().setTitle("Struk Penjualan");
+                getSupportActionBar().setTitle("Transaksi Penjualan");
                 fragment = new StrukFragment();
                 break;
             case R.id.nav_produk_kategori:
@@ -129,7 +129,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 fragment = new KategoriFragment();
                 break;
             case R.id.nav_produk_item:
-                getSupportActionBar().setTitle("Produk");
+                getSupportActionBar().setTitle("Barang");
                 fragment = new ProdukFragment();
                 break;
             case R.id.nav_laporan_harian:

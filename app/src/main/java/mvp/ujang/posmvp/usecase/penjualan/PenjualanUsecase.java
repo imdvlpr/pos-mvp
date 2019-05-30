@@ -8,10 +8,6 @@ import mvp.ujang.posmvp.module.penjualan.datasource.PenjualanDataSource;
 import mvp.ujang.posmvp.module.penjualan.datasource.PenjualanRepository;
 import mvp.ujang.posmvp.module.penjualan.datasource.local.PenjualanLocalDataSource;
 import mvp.ujang.posmvp.module.penjualan.model.Penjualan;
-import mvp.ujang.posmvp.module.produk.datasource.ProdukDataSource;
-import mvp.ujang.posmvp.module.produk.datasource.ProdukRepository;
-import mvp.ujang.posmvp.module.produk.datasource.local.ProdukLocalDataSource;
-import mvp.ujang.posmvp.module.produk.model.Produk;
 
 public class PenjualanUsecase implements PenjualanDataSource {
 

@@ -7,7 +7,6 @@ import java.util.List;
 import mvp.ujang.posmvp.base.BasePresenter;
 import mvp.ujang.posmvp.base.BaseView;
 import mvp.ujang.posmvp.module.penjualan.model.Penjualan;
-import mvp.ujang.posmvp.module.produk.model.Produk;
 import mvp.ujang.posmvp.module.kategori.model.Kategori;
 import mvp.ujang.posmvp.module.keranjang.model.Keranjang;
 

@@ -8,19 +8,17 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import mvp.ujang.posmvp.R;
 import mvp.ujang.posmvp.module.refund.model.RefundDetail;
-import mvp.ujang.posmvp.module.strukdetail.model.StrukDetail;
 import mvp.ujang.posmvp.utils.Common;
 
 public class RefundDetailAdapter extends RecyclerView.Adapter<RefundDetailAdapter.MyViewHolder>{
 
     private Context mContext;
-    private List<RefundDetail> strukList;
+    private List<RefundDetail> transaksiList;
     private SelectedRefund selectedRefund;
 
 
@@ -38,9 +36,9 @@ public class RefundDetailAdapter extends RecyclerView.Adapter<RefundDetailAdapte
         }
     }
 
-    public RefundDetailAdapter(Context mContext, List<RefundDetail> strukList) {
+    public RefundDetailAdapter(Context mContext, List<RefundDetail> transaksiList) {
         this.mContext = mContext;
-        this.strukList = strukList;
+        this.transaksiList = transaksiList;
     }
 
     @Override
@@ -53,7 +51,7 @@ public class RefundDetailAdapter extends RecyclerView.Adapter<RefundDetailAdapte
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        RefundDetail struk = strukList.get(position);
+        RefundDetail struk = transaksiList.get(position);
         holder.tvTotalBayar.setText(Common.convertToRupiah(String.valueOf(Integer.parseInt(struk.getJumlah())*Integer.parseInt(struk.getHargaBarang()))));
         holder.namaBarang.setText(struk.getNamaBarang());
         holder.jumlah.setText(struk.getJumlah()+" x "+struk.getHargaBarang());
@@ -70,7 +68,7 @@ public class RefundDetailAdapter extends RecyclerView.Adapter<RefundDetailAdapte
 
     @Override
     public int getItemCount() {
-        return strukList.size();
+        return transaksiList.size();
     }
 
     public void setSelectedRefund(SelectedRefund selectedRefund) {

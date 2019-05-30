@@ -42,12 +42,12 @@ public class RefundDetailPresenter implements RefundContract.Presenter {
             @Override
             public void onLoadSuccess(List<RefundDetail> response) {
                 view.listStruk(response);
-                Common.printTimeMillis(TAG+" Load Data Struk",startTime,System.currentTimeMillis());
+                Common.printTimeMillis(TAG+" Load Data Transaksi",startTime,System.currentTimeMillis());
             }
 
             @Override
             public void onLoadFailed() {
-                Common.printTimeMillis(TAG+" Load Data Struk",startTime,System.currentTimeMillis());
+                Common.printTimeMillis(TAG+" Load Data Transaksi",startTime,System.currentTimeMillis());
             }
         });
     }

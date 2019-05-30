@@ -5,9 +5,6 @@ import android.support.annotation.NonNull;
 import mvp.ujang.posmvp.base.Callback;
 import mvp.ujang.posmvp.module.penjualan.datasource.local.PenjualanLocalDataSource;
 import mvp.ujang.posmvp.module.penjualan.model.Penjualan;
-import mvp.ujang.posmvp.module.produk.datasource.ProdukDataSource;
-import mvp.ujang.posmvp.module.produk.datasource.local.ProdukLocalDataSource;
-import mvp.ujang.posmvp.module.produk.model.Produk;
 
 public class PenjualanRepository implements PenjualanDataSource{
     private static PenjualanRepository sInstance = null;

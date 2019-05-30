@@ -3,8 +3,6 @@ package mvp.ujang.posmvp.module.refund.view;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -14,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,14 +22,11 @@ import java.util.List;
 import mvp.ujang.posmvp.R;
 import mvp.ujang.posmvp.adapter.RefundDetailAdapter;
 import mvp.ujang.posmvp.base.BaseActivity;
-import mvp.ujang.posmvp.module.keranjang.view.KeranjangActivity;
-import mvp.ujang.posmvp.module.produk.model.Produk;
 import mvp.ujang.posmvp.module.refund.RefundContract;
 import mvp.ujang.posmvp.module.refund.model.RefundDetail;
 import mvp.ujang.posmvp.module.refund.presenter.RefundDetailPresenter;
-import mvp.ujang.posmvp.module.struk.model.Struk;
+import mvp.ujang.posmvp.module.transaksi.model.Transaksi;
 import mvp.ujang.posmvp.usecase.refund.RefundDetailUsecase;
-import mvp.ujang.posmvp.usecase.strukdetail.StrukDetailUsecase;
 import mvp.ujang.posmvp.utils.Common;
 
 public class RefundDetailActivity extends BaseActivity implements RefundContract.StrukView,RefundDetailAdapter.SelectedRefund {
@@ -47,7 +41,7 @@ public class RefundDetailActivity extends BaseActivity implements RefundContract
 
     private RefundDetailPresenter strukDetailPresenter;
     private ArrayList<RefundDetail> strukList = new ArrayList<>();
-    private ArrayList<Struk> newStrukList = new ArrayList<>();
+    private ArrayList<Transaksi> newTransaksiList = new ArrayList<>();
     private String transaksi  = "";
     private String tglTransaksi = "";
     private String totalTransaksi = "";

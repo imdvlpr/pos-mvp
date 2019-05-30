@@ -9,7 +9,6 @@ import mvp.ujang.posmvp.base.Callback;
 import mvp.ujang.posmvp.module.penjualan.PenjualanContract;
 import mvp.ujang.posmvp.module.penjualan.model.Penjualan;
 import mvp.ujang.posmvp.module.penjualan.view.PenjualanFragment;
-import mvp.ujang.posmvp.module.produk.model.Produk;
 import mvp.ujang.posmvp.module.kategori.model.Kategori;
 import mvp.ujang.posmvp.module.keranjang.model.Keranjang;
 import mvp.ujang.posmvp.usecase.kategori.KategoriUsecase;

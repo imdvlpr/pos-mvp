@@ -11,9 +11,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
-import android.util.TimingLogger;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,12 +24,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.nikitakozlov.pury.annotations.MethodProfiling;
-import com.nikitakozlov.pury.annotations.StartProfiling;
-import com.nikitakozlov.pury.annotations.StopProfiling;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +35,6 @@ import mvp.ujang.posmvp.adapter.PenjualanAdapter;
 import mvp.ujang.posmvp.base.BaseFragment;
 import mvp.ujang.posmvp.module.penjualan.PenjualanContract;
 import mvp.ujang.posmvp.module.penjualan.model.Penjualan;
-import mvp.ujang.posmvp.module.produk.model.Produk;
 import mvp.ujang.posmvp.module.penjualan.presenter.PenjualanPresenter;
 import mvp.ujang.posmvp.module.kategori.model.Kategori;
 import mvp.ujang.posmvp.module.keranjang.model.Keranjang;
@@ -50,7 +42,6 @@ import mvp.ujang.posmvp.module.keranjang.view.KeranjangActivity;
 import mvp.ujang.posmvp.usecase.kategori.KategoriUsecase;
 import mvp.ujang.posmvp.usecase.keranjang.KeranjangUsecase;
 import mvp.ujang.posmvp.usecase.penjualan.PenjualanUsecase;
-import mvp.ujang.posmvp.utils.AppConstants;
 import mvp.ujang.posmvp.utils.Common;
 
 public class PenjualanFragment extends BaseFragment implements PenjualanContract.PenjualanView {
@@ -217,7 +208,7 @@ public class PenjualanFragment extends BaseFragment implements PenjualanContract
                 totalItem += Integer.parseInt(response.get(i).getJumlah());
             }
 
-            totalProduk.setText(response.size()+"Produk ("+totalItem+" Item)");
+            totalProduk.setText(response.size()+"Barang ("+totalItem+" Item)");
             totalPembayaran.setText(Common.convertToRupiah(String.valueOf(total)));
             cartDetail.setVisibility(View.VISIBLE);
         } else {

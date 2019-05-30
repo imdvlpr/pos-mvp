@@ -205,7 +205,7 @@ public class DashboardLocalDataSource implements DashboardDataSource {
     }
 
 //    @Override
-//    public void loadStruk(DashboardDetail strukDetail, @NonNull Callback.LoadCallback<DashboardDetail> callback) {
+//    public void loadTransaksi(DashboardDetail strukDetail, @NonNull Callback.LoadCallback<DashboardDetail> callback) {
 //        ArrayList<DashboardDetail> list = new ArrayList<>();
 //        String query = "select T.kd_transaksi,T.tgl_transaksi,T.total_pembayaran,T.transaksi_oleh,D.kd_barang,D.jumlah,D.harga_barang,B.nama_barang\n" +
 //                "from Transaksi T join Detail_Transaksi D on T.kd_transaksi = D.kd_transaksi join Barang B on D.kd_barang = B.kd_barang " +

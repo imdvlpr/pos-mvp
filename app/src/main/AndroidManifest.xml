@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".module.strukdetail.view.StrukDetailActivity"></activity>
+        <activity android:name=".module.transaksidetail.view.StrukDetailActivity"></activity>
         <activity android:name=".module.refund.view.RefundDetailActivity"></activity>
         <activity android:name=".module.dashboard.view.DashboardActivity"></activity>
         <activity
