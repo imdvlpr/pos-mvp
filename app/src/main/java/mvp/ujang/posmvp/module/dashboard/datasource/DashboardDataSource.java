@@ -12,7 +12,7 @@ public interface DashboardDataSource {
 
     //    void loadTransaksi(DashboardDetail strukDetail, @NonNull Callback.LoadCallback<DashboardDetail> callback);
 //    void refundBarang(DashboardDetail strukDetail, @NonNull Callback.AddCallback<DashboardDetail> callback);
-//    void searchBarag(Barang parameter, @NonNull Callback.LoadCallback<Barang> loadProdukCallback);
+//    void searchBarang(Barang parameter, @NonNull Callback.LoadCallback<Barang> loadProdukCallback);
 //    void addBarang(@NonNull Barang produk, @NonNull Callback.AddCallback<Barang> addProdukCallback);
 //    void editBarang(@NonNull Barang produk, @NonNull Callback.EditCallback<Barang> editProdukCallback);
 //    void deleteBarang(@NonNull Barang produk, @NonNull Callback.DeleteCallback<Barang> deleteProdukCallback);

@@ -27,13 +27,13 @@ public class BarangRepository implements BarangDataSource {
 
 
     @Override
-    public void loadProduk(@NonNull Callback.LoadCallback<Barang> loadProdukCallback) {
-        barangLocalDataSource.loadProduk(loadProdukCallback);
+    public void loadBarang(@NonNull Callback.LoadCallback<Barang> loadProdukCallback) {
+        barangLocalDataSource.loadBarang(loadProdukCallback);
     }
 
     @Override
-    public void searchBarag(Barang parameter, @NonNull Callback.LoadCallback<Barang> loadProdukCallback) {
-        barangLocalDataSource.searchBarag(parameter,loadProdukCallback);
+    public void searchBarang(Barang parameter, @NonNull Callback.LoadCallback<Barang> loadProdukCallback) {
+        barangLocalDataSource.searchBarang(parameter,loadProdukCallback);
     }
 
     @Override

@@ -21,11 +21,11 @@ import mvp.ujang.posmvp.base.BaseFragment;
 import mvp.ujang.posmvp.module.transaksi.TransaksiContract;
 import mvp.ujang.posmvp.module.transaksi.model.Transaksi;
 import mvp.ujang.posmvp.module.transaksi.presenter.TransaksiPresenter;
-import mvp.ujang.posmvp.module.transaksidetail.view.StrukDetailActivity;
+import mvp.ujang.posmvp.module.transaksidetail.view.TransaksiDetailActivity;
 import mvp.ujang.posmvp.usecase.transaksi.TransaksiUsecase;
 import mvp.ujang.posmvp.utils.RecyclerItemClickListener;
 
-public class StrukFragment extends BaseFragment implements TransaksiContract.StrukView {
+public class TransaksiFragment extends BaseFragment implements TransaksiContract.TransaksiView {
 
     private RecyclerView recyclerView;
     private TransaksiAdapter adapter;
@@ -35,7 +35,7 @@ public class StrukFragment extends BaseFragment implements TransaksiContract.Str
     private TransaksiPresenter transaksiPresenter;
     private ArrayList<Transaksi> transaksiList = new ArrayList<>();
     private ArrayList<Transaksi> newTransaksiList = new ArrayList<>();
-    public StrukFragment() {
+    public TransaksiFragment() {
     }
 
     @Override
@@ -76,7 +76,7 @@ public class StrukFragment extends BaseFragment implements TransaksiContract.Str
                     @Override
                     public void onItemClick(View view, int position) {
                         if (!newTransaksiList.get(position).isStatus()){
-                            Intent i = new Intent(context, StrukDetailActivity.class);
+                            Intent i = new Intent(context, TransaksiDetailActivity.class);
                             i.putExtra("kdTransaksi", newTransaksiList.get(position).getKdTransaksi());
                             i.putExtra("tglTransaksi", newTransaksiList.get(position).getTanggal());
                             i.putExtra("totalTransaksi", newTransaksiList.get(position).getTotalPembayaran());
@@ -129,7 +129,7 @@ public class StrukFragment extends BaseFragment implements TransaksiContract.Str
 
 
     public void fetchData(){
-        transaksiPresenter.loadStruk();
+        transaksiPresenter.loadTransaksi();
     }
 
     @Override

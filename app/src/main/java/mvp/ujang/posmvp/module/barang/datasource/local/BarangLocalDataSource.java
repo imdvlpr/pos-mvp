@@ -38,7 +38,7 @@ public class BarangLocalDataSource implements BarangDataSource {
 
 
     @Override
-    public void loadProduk(@NonNull Callback.LoadCallback<Barang> loadProdukCallback) {
+    public void loadBarang(@NonNull Callback.LoadCallback<Barang> loadProdukCallback) {
         ArrayList<Barang> list = new ArrayList<Barang>();
         connection = new Connection(context);
         connection.open();
@@ -76,7 +76,7 @@ public class BarangLocalDataSource implements BarangDataSource {
     }
 
     @Override
-    public void searchBarag(Barang parameter, @NonNull Callback.LoadCallback<Barang> loadProdukCallback) {
+    public void searchBarang(Barang parameter, @NonNull Callback.LoadCallback<Barang> loadProdukCallback) {
         String query =  "(id_kategori = '"+parameter.getIdKategori()+ "' or "+parameter.getIdKategori()+" = 0) "+
                 " and (nama_barang like '%"+parameter.getNamaBarang()+  "%' or '"+parameter.getNamaBarang()+"' isnull) ";
 

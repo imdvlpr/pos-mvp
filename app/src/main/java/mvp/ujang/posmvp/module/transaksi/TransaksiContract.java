@@ -8,12 +8,12 @@ import mvp.ujang.posmvp.module.transaksi.model.Transaksi;
 
 public class TransaksiContract {
 
-    public interface StrukView extends BaseView<Presenter> {
+    public interface TransaksiView extends BaseView<Presenter> {
         void listTransaksi(List<Transaksi> response);
     }
 
     public interface Presenter extends BasePresenter {
-        void loadStruk();
+        void loadTransaksi();
     }
 
 

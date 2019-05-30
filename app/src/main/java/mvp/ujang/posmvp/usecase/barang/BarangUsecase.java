@@ -27,13 +27,13 @@ public class BarangUsecase implements BarangDataSource {
 
 
     @Override
-    public void loadProduk(@NonNull Callback.LoadCallback<Barang> loadProdukCallback) {
-        barangRepository.loadProduk(loadProdukCallback);
+    public void loadBarang(@NonNull Callback.LoadCallback<Barang> loadProdukCallback) {
+        barangRepository.loadBarang(loadProdukCallback);
     }
 
     @Override
-    public void searchBarag(Barang parameter, @NonNull Callback.LoadCallback<Barang> loadProdukCallback) {
-        barangRepository.searchBarag(parameter,loadProdukCallback);
+    public void searchBarang(Barang parameter, @NonNull Callback.LoadCallback<Barang> loadProdukCallback) {
+        barangRepository.searchBarang(parameter,loadProdukCallback);
     }
 
     @Override

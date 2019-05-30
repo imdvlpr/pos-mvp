@@ -6,14 +6,14 @@ import mvp.ujang.posmvp.base.BasePresenter;
 import mvp.ujang.posmvp.base.BaseView;
 import mvp.ujang.posmvp.module.transaksidetail.model.TransksiDetail;
 
-public class StrukDetailContract {
+public class TransaksiDetailContract {
 
-    public interface StrukView extends BaseView<Presenter> {
-        void listStruk(List<TransksiDetail> response);
+    public interface TransaksiView extends BaseView<Presenter> {
+        void listTransaksi(List<TransksiDetail> response);
     }
 
     public interface Presenter extends BasePresenter {
-        void loadStruk(TransksiDetail transksiDetail);
+        void loadTransaksi(TransksiDetail transksiDetail);
     }
 
 

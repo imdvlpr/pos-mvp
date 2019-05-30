@@ -39,12 +39,12 @@ import mvp.ujang.posmvp.base.BaseFragment;
 import mvp.ujang.posmvp.module.barang.model.Barang;
 import mvp.ujang.posmvp.module.kategori.model.Kategori;
 import mvp.ujang.posmvp.module.barang.ProdukContract;
-import mvp.ujang.posmvp.module.barang.presenter.ProdukPresenter;
+import mvp.ujang.posmvp.module.barang.presenter.BarangPresenter;
 import mvp.ujang.posmvp.usecase.kategori.KategoriUsecase;
 import mvp.ujang.posmvp.usecase.barang.BarangUsecase;
 import mvp.ujang.posmvp.utils.Common;
 
-public class ProdukFragment extends BaseFragment implements ProdukContract.ProdukView {
+public class BarangFragment extends BaseFragment implements ProdukContract.BarangView {
 
     private RecyclerView recyclerView;
     private FloatingActionButton addButton;
@@ -64,20 +64,20 @@ public class ProdukFragment extends BaseFragment implements ProdukContract.Produ
     //Context Component
     private Context context;
 
-    private ProdukPresenter produkPresenter;
+    private BarangPresenter barangPresenter;
     private ArrayAdapter    kategoriAdpater;
     private List<Barang> barangList = new ArrayList<>();
     private List<Kategori>  kategoriList = new ArrayList<>();
     private List<String>    itemsKategori = new ArrayList<>();
 
-    public ProdukFragment() {
+    public BarangFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_produk, null);
         context = getActivity().getApplicationContext();
-        produkPresenter  = new ProdukPresenter(BarangUsecase.getInstance(context),
+        barangPresenter = new BarangPresenter(BarangUsecase.getInstance(context),
                 KategoriUsecase.getInstance(context),
                 this,context);
 
@@ -120,7 +120,7 @@ public class ProdukFragment extends BaseFragment implements ProdukContract.Produ
                     param.setIdKategori("0");
 
                 param.setNamaBarang("");
-                produkPresenter.searchProduk(param);
+                barangPresenter.searchBarang(param);
             }
 
             @Override
@@ -152,12 +152,12 @@ public class ProdukFragment extends BaseFragment implements ProdukContract.Produ
 
 
     public void fetchData(){
-        produkPresenter.loadProduk();
-        produkPresenter.loadKategori();
+        barangPresenter.loadBarang();
+        barangPresenter.loadKategori();
     }
 
     @Override
-    public void listProduk(List<Barang> response) {
+    public void listBarang(List<Barang> response) {
         barangList.clear();
         barangList.addAll(response);
         adapter.notifyDataSetChanged();
@@ -176,12 +176,12 @@ public class ProdukFragment extends BaseFragment implements ProdukContract.Produ
     }
 
     @Override
-    public void addProduk(Barang response) {
-        produkPresenter.loadProduk();
+    public void addBarang(Barang response) {
+        barangPresenter.loadBarang();
     }
 
     @Override
-    public void detailProduk(Barang response) {
+    public void detailBarang(Barang response) {
 
     }
 
@@ -219,7 +219,7 @@ public class ProdukFragment extends BaseFragment implements ProdukContract.Produ
                 barang.setSatuan(satuan.getText().toString());
                 barang.setIdKategori(kategoriList.get(spinnerKategori.getSelectedItemPosition()-1).getIdKategori());
                 barang.setGambarBarang(Common.encodeToBase64(Common.convertImageViewToBitmap(imgBarang), Bitmap.CompressFormat.JPEG, 100));
-                produkPresenter.addProduk(barang);
+                barangPresenter.addBarang(barang);
                 dialog.dismiss();
             }
         });
@@ -288,7 +288,7 @@ public class ProdukFragment extends BaseFragment implements ProdukContract.Produ
                 else
                     param.setIdKategori("0");
                 param.setNamaBarang(query);
-                produkPresenter.searchProduk(param);
+                barangPresenter.searchBarang(param);
                 adapter.notifyDataSetChanged();
                 return false;
             }

@@ -9,24 +9,24 @@ import mvp.ujang.posmvp.base.Callback;
 import mvp.ujang.posmvp.module.barang.model.Barang;
 import mvp.ujang.posmvp.module.kategori.model.Kategori;
 import mvp.ujang.posmvp.module.barang.ProdukContract;
-import mvp.ujang.posmvp.module.barang.view.ProdukFragment;
+import mvp.ujang.posmvp.module.barang.view.BarangFragment;
 import mvp.ujang.posmvp.usecase.kategori.KategoriUsecase;
 import mvp.ujang.posmvp.usecase.keranjang.KeranjangUsecase;
 import mvp.ujang.posmvp.usecase.barang.BarangUsecase;
 import mvp.ujang.posmvp.utils.Common;
 
-public class ProdukPresenter implements ProdukContract.Presenter {
+public class BarangPresenter implements ProdukContract.Presenter {
 
-    private ProdukContract.ProdukView view;
+    private ProdukContract.BarangView view;
     private KategoriUsecase  kategoriUsecase;
     private BarangUsecase barangUsecase;
     private KeranjangUsecase keranjangUsecase;
     private Context context;
-    private String TAG = ProdukFragment.class.getSimpleName();
+    private String TAG = BarangFragment.class.getSimpleName();
 
-    public ProdukPresenter(BarangUsecase barangUsecase,
+    public BarangPresenter(BarangUsecase barangUsecase,
                            KategoriUsecase kategoriUsecase,
-                           ProdukContract.ProdukView view,
+                           ProdukContract.BarangView view,
                            Context context) {
         this.kategoriUsecase = kategoriUsecase;
         this.barangUsecase = barangUsecase;
@@ -37,16 +37,16 @@ public class ProdukPresenter implements ProdukContract.Presenter {
 
     @Override
     public void start() {
-        loadProduk();
+        loadBarang();
     }
 
     @Override
-    public void loadProduk() {
+    public void loadBarang() {
         final long startTime = System.currentTimeMillis();
-        barangUsecase.loadProduk(new Callback.LoadCallback<Barang>() {
+        barangUsecase.loadBarang(new Callback.LoadCallback<Barang>() {
             @Override
             public void onLoadSuccess(List<Barang> response) {
-                view.listProduk(response);
+                view.listBarang(response);
                 Common.printTimeMillis(TAG+" Load Data Barang",startTime,System.currentTimeMillis());
             }
 
@@ -58,12 +58,12 @@ public class ProdukPresenter implements ProdukContract.Presenter {
     }
 
     @Override
-    public void searchProduk(@NonNull Barang param) {
+    public void searchBarang(@NonNull Barang param) {
         final long startTime = System.currentTimeMillis();
-        barangUsecase.searchBarag(param, new Callback.LoadCallback<Barang>() {
+        barangUsecase.searchBarang(param, new Callback.LoadCallback<Barang>() {
             @Override
             public void onLoadSuccess(List<Barang> response) {
-                view.listProduk(response);
+                view.listBarang(response);
                 Common.printTimeMillis(TAG+" Search Data Barang",startTime,System.currentTimeMillis());
             }
 
@@ -76,12 +76,12 @@ public class ProdukPresenter implements ProdukContract.Presenter {
 
 
     @Override
-    public void addProduk(@NonNull Barang barang) {
+    public void addBarang(@NonNull Barang barang) {
         final long startTime = System.currentTimeMillis();
         barangUsecase.addBarang(barang, new Callback.AddCallback<Barang>() {
             @Override
             public void onAddSuccess(@NonNull Barang response) {
-                view.addProduk(response);
+                view.addBarang(response);
                 Common.printTimeMillis(TAG+" Add Data Barang",startTime,System.currentTimeMillis());
 
             }
@@ -94,12 +94,12 @@ public class ProdukPresenter implements ProdukContract.Presenter {
     }
 
     @Override
-    public void editProduk(@NonNull Barang barang) {
+    public void editBarang(@NonNull Barang barang) {
 
     }
 
     @Override
-    public void deleteProduk(@NonNull Barang barang) {
+    public void deleteBarang(@NonNull Barang barang) {
 
     }
 

@@ -19,13 +19,13 @@ import mvp.ujang.posmvp.adapter.TransaksiDetailAdapter;
 import mvp.ujang.posmvp.base.BaseActivity;
 import mvp.ujang.posmvp.module.refund.view.RefundDetailActivity;
 import mvp.ujang.posmvp.module.transaksi.model.Transaksi;
-import mvp.ujang.posmvp.module.transaksidetail.StrukDetailContract;
+import mvp.ujang.posmvp.module.transaksidetail.TransaksiDetailContract;
 import mvp.ujang.posmvp.module.transaksidetail.model.TransksiDetail;
-import mvp.ujang.posmvp.module.transaksidetail.presenter.StrukDetailPresenter;
+import mvp.ujang.posmvp.module.transaksidetail.presenter.TransaksiDetailPresenter;
 import mvp.ujang.posmvp.usecase.transaksidetail.TransaksiDetailUsecase;
 import mvp.ujang.posmvp.utils.Common;
 
-public class StrukDetailActivity extends BaseActivity implements StrukDetailContract.StrukView {
+public class TransaksiDetailActivity extends BaseActivity implements TransaksiDetailContract.TransaksiView {
 
     private RecyclerView recyclerView;
     private TextView tanggal;
@@ -37,7 +37,7 @@ public class StrukDetailActivity extends BaseActivity implements StrukDetailCont
     //Context Component
     private Context context;
 
-    private StrukDetailPresenter strukDetailPresenter;
+    private TransaksiDetailPresenter transaksiDetailPresenter;
     private ArrayList<TransksiDetail> strukList = new ArrayList<>();
     private ArrayList<Transaksi> newTransaksiList = new ArrayList<>();
     private String transaksi  = "";
@@ -59,7 +59,7 @@ public class StrukDetailActivity extends BaseActivity implements StrukDetailCont
         }
 
         context = this;
-        strukDetailPresenter  = new StrukDetailPresenter(TransaksiDetailUsecase.getInstance(context),
+        transaksiDetailPresenter = new TransaksiDetailPresenter(TransaksiDetailUsecase.getInstance(context),
                 this,context);
 
         findViews();
@@ -133,18 +133,18 @@ public class StrukDetailActivity extends BaseActivity implements StrukDetailCont
     public void fetchData(){
         TransksiDetail transksiDetail = new TransksiDetail();
         transksiDetail.setKdTransaksi(transaksi);
-        strukDetailPresenter.loadStruk(transksiDetail);
+        transaksiDetailPresenter.loadTransaksi(transksiDetail);
     }
 
     @Override
-    public void listStruk(List<TransksiDetail> response) {
+    public void listTransaksi(List<TransksiDetail> response) {
         strukList.clear();
         strukList.addAll(response);
         adapter.notifyDataSetChanged();
     }
 
     @Override
-    public void setPresenter(@NonNull StrukDetailContract.Presenter presenter) {
+    public void setPresenter(@NonNull TransaksiDetailContract.Presenter presenter) {
 
     }
 

@@ -7,19 +7,19 @@ import java.util.List;
 import mvp.ujang.posmvp.base.Callback;
 import mvp.ujang.posmvp.module.transaksi.TransaksiContract;
 import mvp.ujang.posmvp.module.transaksi.model.Transaksi;
-import mvp.ujang.posmvp.module.transaksi.view.StrukFragment;
+import mvp.ujang.posmvp.module.transaksi.view.TransaksiFragment;
 import mvp.ujang.posmvp.usecase.transaksi.TransaksiUsecase;
 import mvp.ujang.posmvp.utils.Common;
 
 public class TransaksiPresenter implements TransaksiContract.Presenter {
 
-    private TransaksiContract.StrukView view;
+    private TransaksiContract.TransaksiView view;
     private TransaksiUsecase transaksiUsecase;
     private Context context;
-    private String TAG = StrukFragment.class.getSimpleName();
+    private String TAG = TransaksiFragment.class.getSimpleName();
 
     public TransaksiPresenter(TransaksiUsecase transaksiUsecase,
-                              TransaksiContract.StrukView view,
+                              TransaksiContract.TransaksiView view,
                               Context context) {
         this.transaksiUsecase = transaksiUsecase;
         this.view = view;
@@ -28,12 +28,12 @@ public class TransaksiPresenter implements TransaksiContract.Presenter {
 
     @Override
     public void start() {
-        loadStruk();
+        loadTransaksi();
     }
 
 
     @Override
-    public void loadStruk() {
+    public void loadTransaksi() {
         final long startTime = System.currentTimeMillis();
         transaksiUsecase.loadTransaksi(new Callback.LoadCallback<Transaksi>() {
             @Override

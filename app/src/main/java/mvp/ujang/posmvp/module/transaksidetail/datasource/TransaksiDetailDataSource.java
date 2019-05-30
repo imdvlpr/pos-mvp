@@ -7,7 +7,7 @@ import mvp.ujang.posmvp.module.transaksidetail.model.TransksiDetail;
 
 public interface TransaksiDetailDataSource {
     void loadTransaksi(TransksiDetail transksiDetail, @NonNull Callback.LoadCallback<TransksiDetail> callback);
-//    void searchBarag(Barang parameter, @NonNull Callback.LoadCallback<Barang> loadProdukCallback);
+//    void searchBarang(Barang parameter, @NonNull Callback.LoadCallback<Barang> loadProdukCallback);
 //    void addBarang(@NonNull Barang produk, @NonNull Callback.AddCallback<Barang> addProdukCallback);
 //    void editBarang(@NonNull Barang produk, @NonNull Callback.EditCallback<Barang> editProdukCallback);
 //    void deleteBarang(@NonNull Barang produk, @NonNull Callback.DeleteCallback<Barang> deleteProdukCallback);
