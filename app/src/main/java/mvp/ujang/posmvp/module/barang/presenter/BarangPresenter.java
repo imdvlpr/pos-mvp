@@ -30,7 +30,6 @@ public class BarangPresenter implements ProdukContract.Presenter {
                            Context context) {
         this.kategoriUsecase = kategoriUsecase;
         this.barangUsecase = barangUsecase;
-        this.keranjangUsecase = keranjangUsecase;
         this.view = view;
         this.context = context;
     }

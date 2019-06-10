@@ -37,6 +37,9 @@ public class Barang {
 	@SerializedName("selected")
 	private boolean selected;
 
+	@SerializedName("harga_beli_barang")
+	private String hargaBeliBarang;
+
 
 	public Barang(){}
 
@@ -137,6 +140,14 @@ public class Barang {
 
 	public void setSelected(boolean selected) {
 		this.selected = selected;
+	}
+
+	public String getHargaBeliBarang() {
+		return hargaBeliBarang;
+	}
+
+	public void setHargaBeliBarang(String hargaBeliBarang) {
+		this.hargaBeliBarang = hargaBeliBarang;
 	}
 
 	@Override

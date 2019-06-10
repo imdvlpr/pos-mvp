@@ -131,6 +131,7 @@ public class BarangLocalDataSource implements BarangDataSource {
         values.put("deskripsi_barang", barang.getDeskripsiBarang());
         values.put("gambar_barang", barang.getGambarBarang());
         values.put("id_kategori", barang.getIdKategori());
+        values.put("harga_beli_barang",barang.getHargaBeliBarang());
         long returnValue = database.insert("Barang", null, values);
 
         if (returnValue!=0)

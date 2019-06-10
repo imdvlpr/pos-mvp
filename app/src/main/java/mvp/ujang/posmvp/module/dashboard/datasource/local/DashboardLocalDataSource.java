@@ -50,10 +50,14 @@ public class DashboardLocalDataSource implements DashboardDataSource {
             where = "where strftime('%Y', b.tgl_transaksi) = '"+dashboardDetail.getTahun()+"'";
 
         String query = "select a.*,b.*,c.*,d.*,e.*,f.*,g.* from \n" +
-                "(select ifnull(sum(total_pembayaran),0) as gross_sales from transaksi b "+where+") a,\n" +
+                "(select \n" +
+                "ifnull(sum((b.total_pembayaran)),0) + \n" +
+                "ifnull(sum((a.harga_barang * a.jumlah )),0) as gross_sales from transaksi b left join refund a on a.kd_transaksi = b.kd_transaksi "+where+") a,\n" +
                 "(select ifnull(sum((harga_barang * jumlah )),0) as refunds from refund a join transaksi b on a.kd_transaksi = b.kd_transaksi  "+where+") b,\n" +
-                "(select ifnull(sum((total_pembayaran)),0) as gross_profit from transaksi b "+where+") c,\n" +
-                "(select ifnull(sum((total_pembayaran)),0) as net_sales from transaksi b "+where+") d,\n" +
+                "(select ifnull(sum((c.harga_jual_barang*a.jumlah)),0)-ifnull(sum((c.harga_beli_barang*a.jumlah)),0) as gross_profit \n" +
+                "from transaksi b join detail_transaksi a on a.kd_transaksi = b.kd_transaksi\n" +
+                "join barang c on a.kd_barang = c.kd_barang "+where+") c,\n" +
+                "(select ifnull(sum((b.total_pembayaran)),0) as net_sales from transaksi b "+where+") d,\n" +
                 "(select ifnull(count(*),0) as total_sales from transaksi b "+where+") e,\n" +
                 "(select ifnull(sum(jumlah),0) as total_item from detail_transaksi a join transaksi b on a.kd_transaksi = b.kd_transaksi  "+where+") f,\n" +
                 "(select ifnull(count(distinct a.kd_transaksi),0) as total_refund from refund a join transaksi b on a.kd_transaksi = b.kd_transaksi  "+where+")g\n";
@@ -203,70 +207,6 @@ public class DashboardLocalDataSource implements DashboardDataSource {
 
         connection.close();
     }
-
-//    @Override
-//    public void loadTransaksi(DashboardDetail strukDetail, @NonNull Callback.LoadCallback<DashboardDetail> callback) {
-//        ArrayList<DashboardDetail> list = new ArrayList<>();
-//        String query = "select T.kd_transaksi,T.tgl_transaksi,T.total_pembayaran,T.transaksi_oleh,D.kd_barang,D.jumlah,D.harga_barang,B.nama_barang\n" +
-//                "from Transaksi T join Detail_Transaksi D on T.kd_transaksi = D.kd_transaksi join Barang B on D.kd_barang = B.kd_barang " +
-//                "WHERE T.KD_TRANSAKSI = '"+strukDetail.getKdTransaksi()+"'" +
-//                "\n";
-//        connection = new Connection(context);
-//        connection.open();
-//        database = connection.dbHelper().getReadableDatabase();
-//        database = connection.database();
-//
-//        try {
-//            Cursor cursor;
-//            cursor = database.rawQuery(query,null);
-//            Log.d("success_struk","success_struk"+cursor.getCount());
-//            if (cursor.getCount() > 0) {
-//                if (cursor.moveToFirst()) {
-//                    do {
-//                        DashboardDetail item = new DashboardDetail();
-//                        item.setKdTransaksi(cursor.getString(cursor.getColumnIndexOrThrow("kd_transaksi")));
-//                        item.setKdBarang(cursor.getString(cursor.getColumnIndexOrThrow("kd_barang")));
-//                        item.setTglTransaksi(cursor.getString(cursor.getColumnIndexOrThrow("tgl_transaksi")));
-//                        item.setJumlah(cursor.getString(cursor.getColumnIndexOrThrow("jumlah")));
-//                        item.setHargaBarang(cursor.getString(cursor.getColumnIndexOrThrow("harga_barang")));
-//                        item.setNamaBarang(cursor.getString(cursor.getColumnIndexOrThrow("nama_barang")));
-//                        item.setTotalPembayaran(cursor.getString(cursor.getColumnIndexOrThrow("total_pembayaran")));
-//                        list.add(item);
-//
-//                        Log.d("data_struk",item.toString());
-//
-//                    } while (cursor.moveToNext());
-//                }
-//            }
-//            cursor.close();
-//            callback.onLoadSuccess(list);
-//        } catch (Exception e) {
-//            Log.d("error_struk","error_struk",e);
-//        }
-//
-//        connection.close();
-//    }
-//
-//    @Override
-//    public void refundBarang(DashboardDetail strukDetail, @NonNull Callback.AddCallback<DashboardDetail> callback) {
-//        connection = new Connection(context);
-//        connection.open();
-//        database = connection.dbHelper().getReadableDatabase();
-//        database = connection.database();
-//
-//        ContentValues values = new ContentValues();
-//        values.put("kd_barang", strukDetail.getKdBarang());
-//        values.put("kd_transaksi",strukDetail.getKdTransaksi());
-//        values.put("jumlah",strukDetail.getJumlah());
-//        values.put("harga_barang",strukDetail.getHargaBarang());
-//        long returnValue = database.insert("Refund", null, values);
-//
-//        if (returnValue!=0)
-//            callback.onAddSuccess(strukDetail);
-//        else
-//            callback.onAddFailed();
-//    }
-
 }
 
 

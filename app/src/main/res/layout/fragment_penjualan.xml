@@ -66,7 +66,7 @@
             android:paddingLeft="30dp"
             android:layout_marginRight="20sp"
             android:background="@drawable/button_cyrcle_accent"
-            android:text="Pesan"
+            android:text="Lihat Keranjang"
             android:textSize="11sp"
             android:textColor="@color/white" />
 

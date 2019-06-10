@@ -56,6 +56,7 @@ public class BarangFragment extends BaseFragment implements ProdukContract.Baran
     private EditText deskripsiBarang;
     private EditText hargaBeli;
     private EditText hargaJualBarang;
+    private EditText hargaBeliBarang;
     private EditText jumlah;
     private EditText satuan;
     private ImageView imgBarang;
@@ -197,13 +198,12 @@ public class BarangFragment extends BaseFragment implements ProdukContract.Baran
 
         namaBarang      = viewInflated.findViewById(R.id.nama_barang);
         deskripsiBarang = viewInflated.findViewById(R.id.deskripsi_barang);
-        hargaBeli       = viewInflated.findViewById(R.id.harga_beli);
         hargaJualBarang = viewInflated.findViewById(R.id.harga_jual_barang);
         jumlah          = viewInflated.findViewById(R.id.jumlah);
         satuan          = viewInflated.findViewById(R.id.satuan);
         imgBarang     = viewInflated.findViewById(R.id.imgBarang);
         spinnerKategori = viewInflated.findViewById(R.id.spinner);
-
+        hargaBeliBarang = viewInflated.findViewById(R.id.harga_beli_barang);
         builder.setView(viewInflated);
         spinnerKategori.setAdapter(kategoriAdpater);
 
@@ -219,6 +219,7 @@ public class BarangFragment extends BaseFragment implements ProdukContract.Baran
                 barang.setSatuan(satuan.getText().toString());
                 barang.setIdKategori(kategoriList.get(spinnerKategori.getSelectedItemPosition()-1).getIdKategori());
                 barang.setGambarBarang(Common.encodeToBase64(Common.convertImageViewToBitmap(imgBarang), Bitmap.CompressFormat.JPEG, 100));
+                barang.setHargaBeliBarang(hargaBeliBarang.getText().toString());
                 barangPresenter.addBarang(barang);
                 dialog.dismiss();
             }
