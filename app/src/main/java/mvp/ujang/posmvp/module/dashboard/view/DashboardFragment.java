@@ -269,8 +269,12 @@ public class DashboardFragment extends BaseFragment implements DashboardContract
     }
 
     public void addLabelsChart(List<DashboardDetail> data){
-        for (int i = 0 ;i<data.size();i++)
-            chartLabels.add(Common.getMonthName(data.get(i).getBulan()));
+        if (spinnerLaporan.getSelectedItem().toString().equals("Harian"))
+            for (int i = 0 ;i<data.size();i++)
+                chartLabels.add(Common.getDayName(data.get(i).getBulan()));
+        else
+            for (int i = 0 ;i<data.size();i++)
+                chartLabels.add(Common.getMonthName(data.get(i).getBulan()));
     }
 
 

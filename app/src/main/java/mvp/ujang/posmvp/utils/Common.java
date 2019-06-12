@@ -9,7 +9,9 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import java.io.ByteArrayOutputStream;
+import java.text.DateFormatSymbols;
 import java.text.ParseException;
+import java.time.DayOfWeek;
 import java.util.Calendar;
 import java.util.Date;
 import java.text.DecimalFormat;
@@ -111,6 +113,12 @@ public class Common {
 
         java.text.SimpleDateFormat currentDate = new java.text.SimpleDateFormat("MMM");
         return currentDate.format(date1);
+    }
+
+
+    public static String getDayName(String day){
+        String weekday = new DateFormatSymbols().getShortWeekdays()[Integer.parseInt(day)-1];
+        return weekday;
     }
 
     public static void printTimeMillis(String TAG,long startTime,long endTime){

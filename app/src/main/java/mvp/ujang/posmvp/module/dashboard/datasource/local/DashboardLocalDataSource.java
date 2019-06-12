@@ -110,29 +110,53 @@ public class DashboardLocalDataSource implements DashboardDataSource {
     public void loadInfoGross(DashboardDetail dashboardDetail, @NonNull Callback.LoadCallback<DashboardDetail> callback) {
         String tanggal = dashboardDetail.getTanggal();
         String where = "";
-        if (dashboardDetail.getMode().equals("Harian"))
-            where = "where tahun = strftime('%Y','"+dashboardDetail.getTanggal()+"')";
-        else if (dashboardDetail.getMode().equals("Bulanan"))
+        String query = "";
+
+        if (dashboardDetail.getMode().equals("Harian")){
+            query = "WITH DATEDATA(N) AS(\n" +
+                    "SELECT 1\n" +
+                    "UNION ALL\n" +
+                    "SELECT N+1\n" +
+                    "FROM DATEDATA\n" +
+                    "WHERE N < 7)\n" +
+                    "SELECT substr('00'||N,-2) as bulan,IFNULL((b.GROSS_SALES),0) as gross_sales,tgl_transaksi\n" +
+                    "FROM DATEDATA  A left join (SELECT strftime('%w',tgl_transaksi) +1 as bulan,\n" +
+                    "\tIFNULL(SUM(TOTAL_PEMBAYARAN),0) AS GROSS_SALES,\n" +
+                    "\ttgl_transaksi\n" +
+                    "\tFROM TRANSAKSI where\n" +
+                    "tgl_transaksi > (SELECT DATETIME('"+dashboardDetail.getTanggal()+"', '-7 day'))\n" +
+                    "and tgl_transaksi < (SELECT DATETIME('"+dashboardDetail.getTanggal()+"', '0 day'))\n" +
+                    "GROUP by tgl_transaksi\n" +
+                    "order by tgl_transaksi ASC ) B ON substr('00'||N,-2) = substr('00'||b.bulan,-2)\n" +
+                    "ORDER by tgl_transaksi asc";
+        } else if (dashboardDetail.getMode().equals("Bulanan"))
             where = "where tahun = strftime('%Y','"+dashboardDetail.getTanggal()+"')";
         else if (dashboardDetail.getMode().equals("Tahunan"))
             where = "where tahun = '"+dashboardDetail.getTahun()+"'";
 
 
+
+
+
         ArrayList<DashboardDetail> list = new ArrayList<>();
-        String query = "WITH DATEDATA(N) AS\n" +
-                "                (\n" +
-                "                        SELECT 1\n" +
-                "                        UNION ALL\n" +
-                "                        SELECT N+1\n" +
-                "                        FROM DATEDATA\n" +
-                "                        WHERE N < 12\n" +
-                "                )\n" +
-                "\n" +
-                "\n" +
-                "        SELECT substr('00'||N,-2) as bulan,IFNULL((b.GROSS_SALES),0) as gross_sales\n" +
-                "        FROM DATEDATA  A left join (SELECT strftime('%m',tgl_transaksi) as bulan,strftime('%Y',tgl_transaksi) as tahun,IFNULL(SUM(TOTAL_PEMBAYARAN),0) AS GROSS_SALES FROM TRANSAKSI\n" +
-                "        "+where+"           \n" +
-                "                group by strftime('%m',tgl_transaksi) , strftime('%Y',tgl_transaksi)) B ON substr('00'||N,-2) = b.bulan\n";
+        if (query.equals(""))
+            query = "WITH DATEDATA(N) AS\n" +
+                    "                (\n" +
+                    "                        SELECT 1\n" +
+                    "                        UNION ALL\n" +
+                    "                        SELECT N+1\n" +
+                    "                        FROM DATEDATA\n" +
+                    "                        WHERE N < 12\n" +
+                    "                )\n" +
+                    "\n" +
+                    "\n" +
+                    "        SELECT substr('00'||N,-2) as bulan,IFNULL((b.GROSS_SALES),0) as gross_sales\n" +
+                    "        FROM DATEDATA  A left join (SELECT strftime('%m',tgl_transaksi) as bulan,strftime('%Y',tgl_transaksi) as tahun,IFNULL(SUM(TOTAL_PEMBAYARAN),0) AS GROSS_SALES FROM TRANSAKSI\n" +
+                    "        "+where+"           \n" +
+                    "                group by strftime('%m',tgl_transaksi) , strftime('%Y',tgl_transaksi)) B ON substr('00'||N,-2) = b.bulan\n";
+
+
+
         connection = new Connection(context);
         connection.open();
         database = connection.dbHelper().getReadableDatabase();
