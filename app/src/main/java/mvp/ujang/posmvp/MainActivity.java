@@ -136,9 +136,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 getSupportActionBar().setTitle("Laporan");
                 fragment = new DashboardFragment();
                 break;
-            case R.id.nav_laporan_bulanan:
-                fragment = new PenjualanFragment();
-                break;
         }
 
         //replacing the fragment
