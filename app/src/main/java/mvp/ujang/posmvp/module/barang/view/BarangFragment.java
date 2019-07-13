@@ -201,7 +201,7 @@ public class BarangFragment extends BaseFragment implements ProdukContract.Baran
         hargaJualBarang = viewInflated.findViewById(R.id.harga_jual_barang);
         jumlah          = viewInflated.findViewById(R.id.jumlah);
         satuan          = viewInflated.findViewById(R.id.satuan);
-        imgBarang     = viewInflated.findViewById(R.id.imgBarang);
+        imgBarang       = viewInflated.findViewById(R.id.imgBarang);
         spinnerKategori = viewInflated.findViewById(R.id.spinner);
         hargaBeliBarang = viewInflated.findViewById(R.id.harga_beli_barang);
         builder.setView(viewInflated);
