@@ -3,9 +3,11 @@ package mvp.ujang.posmvp.module.penjualan.presenter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mvp.ujang.posmvp.base.Callback;
+import mvp.ujang.posmvp.module.barang.model.Barang;
 import mvp.ujang.posmvp.module.penjualan.PenjualanContract;
 import mvp.ujang.posmvp.module.penjualan.model.Penjualan;
 import mvp.ujang.posmvp.module.penjualan.view.PenjualanFragment;
@@ -24,6 +26,7 @@ public class PenjualanPresenter implements PenjualanContract.Presenter {
     private KeranjangUsecase keranjangUsecase;
     private Context context;
     private String TAG = PenjualanFragment.class.getSimpleName();
+    private List<Penjualan> listPenjualan = new ArrayList<>();
 
     public PenjualanPresenter(PenjualanUsecase penjualanUsecase,
                               KategoriUsecase kategoriUsecase,
@@ -48,6 +51,8 @@ public class PenjualanPresenter implements PenjualanContract.Presenter {
         penjualanUsecase.loadPenjualan(new Callback.LoadCallback<Penjualan>() {
             @Override
             public void onLoadSuccess(List<Penjualan> response) {
+                listPenjualan.clear();
+                listPenjualan.addAll(response);
                 view.listProduk(response);
                 Common.printTimeMillis(TAG+" Load Data Penjualan",startTime,System.currentTimeMillis());
             }
@@ -62,18 +67,15 @@ public class PenjualanPresenter implements PenjualanContract.Presenter {
     @Override
     public void searchPenjualan(@NonNull Penjualan param) {
         final long startTime = System.currentTimeMillis();
-        penjualanUsecase.searchPenjualan(param, new Callback.LoadCallback<Penjualan>() {
-            @Override
-            public void onLoadSuccess(List<Penjualan> response) {
-                view.listProduk(response);
-                Common.printTimeMillis(TAG+" Search Data Penjualan",startTime,System.currentTimeMillis());
-            }
-
-            @Override
-            public void onLoadFailed() {
-                Common.printTimeMillis(TAG+" Search Data Penjualan",startTime,System.currentTimeMillis());
-            }
-        });
+        List<Penjualan> filter = new ArrayList<>();
+        for(int i = 0; i < listPenjualan.size(); i++)
+        {
+            if((listPenjualan.get(i).getNamaBarang().toUpperCase().contains(param.getNamaBarang().toUpperCase()) || param.getNamaBarang().equals("")) &&
+                    (listPenjualan.get(i).getIdKategori().toUpperCase().contains(param.getIdKategori().toUpperCase()) || param.getIdKategori().equals("")))
+                filter.add(listPenjualan.get(i));
+        }
+        view.listProduk(filter);
+        Common.printTimeMillis(TAG+" Search Data Penjualan",startTime,System.currentTimeMillis());
     }
 
     @Override

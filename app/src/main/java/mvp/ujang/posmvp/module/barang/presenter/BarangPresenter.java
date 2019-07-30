@@ -3,6 +3,7 @@ package mvp.ujang.posmvp.module.barang.presenter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mvp.ujang.posmvp.base.Callback;
@@ -10,6 +11,7 @@ import mvp.ujang.posmvp.module.barang.model.Barang;
 import mvp.ujang.posmvp.module.kategori.model.Kategori;
 import mvp.ujang.posmvp.module.barang.ProdukContract;
 import mvp.ujang.posmvp.module.barang.view.BarangFragment;
+import mvp.ujang.posmvp.module.penjualan.model.Penjualan;
 import mvp.ujang.posmvp.usecase.kategori.KategoriUsecase;
 import mvp.ujang.posmvp.usecase.keranjang.KeranjangUsecase;
 import mvp.ujang.posmvp.usecase.barang.BarangUsecase;
@@ -23,6 +25,7 @@ public class BarangPresenter implements ProdukContract.Presenter {
     private KeranjangUsecase keranjangUsecase;
     private Context context;
     private String TAG = BarangFragment.class.getSimpleName();
+    private List<Barang> listBarang = new ArrayList<>();
 
     public BarangPresenter(BarangUsecase barangUsecase,
                            KategoriUsecase kategoriUsecase,
@@ -45,6 +48,8 @@ public class BarangPresenter implements ProdukContract.Presenter {
         barangUsecase.loadBarang(new Callback.LoadCallback<Barang>() {
             @Override
             public void onLoadSuccess(List<Barang> response) {
+                listBarang.clear();
+                listBarang.addAll(response);
                 view.listBarang(response);
                 Common.printTimeMillis(TAG+" Load Data Barang",startTime,System.currentTimeMillis());
             }
@@ -59,18 +64,15 @@ public class BarangPresenter implements ProdukContract.Presenter {
     @Override
     public void searchBarang(@NonNull Barang param) {
         final long startTime = System.currentTimeMillis();
-        barangUsecase.searchBarang(param, new Callback.LoadCallback<Barang>() {
-            @Override
-            public void onLoadSuccess(List<Barang> response) {
-                view.listBarang(response);
-                Common.printTimeMillis(TAG+" Search Data Barang",startTime,System.currentTimeMillis());
-            }
-
-            @Override
-            public void onLoadFailed() {
-                Common.printTimeMillis(TAG+" Search Data Barang",startTime,System.currentTimeMillis());
-            }
-        });
+        List<Barang> filter = new ArrayList<>();
+        for(int i = 0; i < listBarang.size(); i++)
+        {
+            if((listBarang.get(i).getNamaBarang().toUpperCase().contains(param.getNamaBarang().toUpperCase()) || param.getNamaBarang().equals("")) &&
+                    (listBarang.get(i).getIdKategori().toUpperCase().contains(param.getIdKategori().toUpperCase()) || param.getIdKategori().equals("")))
+                filter.add(listBarang.get(i));
+        }
+        view.listBarang(filter);
+        Common.printTimeMillis(TAG+" Search Data Barang",startTime,System.currentTimeMillis());
     }
 
 
