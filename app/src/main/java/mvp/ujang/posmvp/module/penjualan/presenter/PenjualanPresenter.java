@@ -71,7 +71,7 @@ public class PenjualanPresenter implements PenjualanContract.Presenter {
         for(int i = 0; i < listPenjualan.size(); i++)
         {
             if((listPenjualan.get(i).getNamaBarang().toUpperCase().contains(param.getNamaBarang().toUpperCase()) || param.getNamaBarang().equals("")) &&
-                    (listPenjualan.get(i).getIdKategori().toUpperCase().contains(param.getIdKategori().toUpperCase()) || param.getIdKategori().equals("")))
+                    (listPenjualan.get(i).getIdKategori().toUpperCase().contains(param.getIdKategori().toUpperCase()) || param.getIdKategori().equals("0")))
                 filter.add(listPenjualan.get(i));
         }
         view.listProduk(filter);
